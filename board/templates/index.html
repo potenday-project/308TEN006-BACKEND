@@ -1,1 +1,10 @@
-포텐데이_팀6_메인페이지
+
+{% if user.is_authenticated %}
+    <P>로그인 완료 플로우</P>
+    <span id="user_name">{{ user.username }}</span>님 반갑습니다!
+    <a href="{% url 'logout' %}">logout</a>
+{% else %}
+    <P>미로그인 플로우</P>
+    <a href="{% url 'login' %}">로그인</a>
+    <a href="{% url 'signup' %}">회원가입</a>
+{% endif %}
