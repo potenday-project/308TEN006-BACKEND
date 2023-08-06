@@ -1,0 +1,41 @@
+
+
+<form method="POST" class="post-form" enctype="multipart/form-data">
+  {%csrf_token%}  
+
+  <div class="form-group">
+    <label for="id_text">text 1</label>
+    <textarea class="form-control" rows="3" name="text" cols="40" rows="10" maxlength="150" required id="id_text"></textarea>
+    <h6 class="pull-right" id="count_message"></h6>
+  </div>
+  <div class="form-group">
+    <label for="id_text2">text 2</label>
+    <textarea class="form-control" rows="3" name="text2" cols="40" rows="10" maxlength="150" required id="id_text"></textarea>
+    <h6 class="pull-right" id="count_message"></h6>
+  </div>
+  <div class="form-group">
+    <label for="id_text3">text 3</label>
+    <textarea class="form-control" rows="3" name="text3" cols="40" rows="10" maxlength="150" required id="id_text""></textarea>
+    <h6 class="pull-right" id="count_message"></h6>
+  </div>
+
+    <button type="submit" class="save btn btn-outline-dark">저장</button>
+    <a href="{% url 'index' %}">
+      <button type="button" class="btn btn-outline-dark">취소</button>
+    </a>
+</form>
+
+
+<script type="text/javascript">
+
+  var text_max = 0;
+  $('#count_message').html(text_max + ' / 150');
+
+  $('#id_text').keyup(function() {
+    var text_length = $('#id_text').val().length;
+    var text_remaining = text_max + text_length;
+
+    $('#count_message').html(text_remaining + ' / 150');
+  });
+
+</script>
