@@ -1,15 +1,49 @@
 <h1>로그인</h1>
 
-<form method="POST" action="{% url 'login'%}">
-    {% csrf_token %}
-    아이디:
+{% if messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+  <strong>{{ message.message }}</strong>
+  {% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<form method="post" action="{% url 'login' %}" class="sign-in-form">
+    {%csrf_token%}  
     <br>
-    <input name="username" type="text" >
+    <div class="d-flex justify-content-center">
     <br>
-    비밀번호:
-    <br>
-    <input name="password" type="password" >
-    <br>
-    <br>
-    <input class="btn btn-primary" type="submit" value="로그인">
-</form>
+    </div>
+    <div class="card-body text-success">
+    {% if form.errors %}
+        <p>사용자의 ID와 PASSWORD를 확인해주세요.</p>
+    {% endif %}
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>올바른 계정으로 접속해주세요.</p>
+        {% else %}
+        <p>로그인을 해주시기 바랍니다.</p>
+        {% endif %}
+    {% endif %}
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.username.id_for_label }}">아이디</label>
+      <input class="form-control" id="{{ form.username.id_for_label }}" maxlength="15" name="{{ form.username.html_name }}" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">패스워드</label>
+      <input class="form-control" id="{{ form.password.id_for_label }}" maxlength="120" name="{{ form.password.html_name }}" type="password" />
+    </div>
+
+    <input type="submit" class="save btn btn-outline-dark" value="로그인">
+
+    <a href="{% url 'index' %}">
+      <button type="button" class="btn btn-outline-dark">취소</button>
+    </a>
+
+  </form>

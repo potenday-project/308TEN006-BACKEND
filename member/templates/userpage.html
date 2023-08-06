@@ -1,0 +1,22 @@
+<a href="{% url 'index' %}">메인가기</a>
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 35rem;">
+      <div class="card-body">
+        <div class="d-flex bd-highlight mb-3">
+          <div class="mr-auto p-2 bd-highlight"><h5 class="font-weight-bold">{{id}}의 프로필</h5></div>
+          <div class="p-2 bd-highlight"></div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="card-body">
+        {% if intro %}
+        <p class="font-weight-normal">{{intro | linebreaksbr}}</p>
+        {% else %}
+        <p class="font-weight-normal">자기소개가 없습니다.<br></p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

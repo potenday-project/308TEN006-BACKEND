@@ -2,7 +2,8 @@
 {% if user.is_authenticated %}
     <P>로그인 완료 플로우</P>
     <span id="user_name">{{ user.username }}</span>님 반갑습니다!
-    <a href="{% url 'logout' %}">logout</a>
+    <a class="nav-link" href="{% url 'mypage' %}">마이페이지</a>
+    <a href="{% url 'logout' %}">로그아웃</a>
 {% else %}
     <P>미로그인 플로우</P>
     <a href="{% url 'login' %}">로그인</a>
