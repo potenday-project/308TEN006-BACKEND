@@ -1,25 +1,17 @@
-<a href="{% url 'index' %}">메인가기</a>
-<div class="container">
-  <div class="d-flex justify-content-center">
-    <div class="card" style="width: 35rem;">
-      <div class="card-body">
-        <form method="POST" class="post-form" enctype="multipart/form-data" action="">
-          {%csrf_token%}
-          <div class="d-flex bd-highlight mb-3">
-            <div class="mr-auto p-2 bd-highlight"><h5 class="font-weight-bold">{{user.username}}의 프로필 수정</h5></div>
-            <div class="p-2 bd-highlight"><input type="submit" class="save btn btn-outline-dark" value="변경"></div>
-            <div class="p-2 bd-highlight"><a href="{% url 'mypage' %}"><button type="button" class="btn btn-outline-dark">취소</button></a></div>
-          </div>
-          <br>
-          {{ profile_form.as_p }}
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<h1>프로필 수정하기</h1>
+
+<h3>"{{user.username}}"님의 프로필 수정</h3>
+
+<form method="POST" enctype="multipart/form-data" action="">
+  {%csrf_token%}
+  {{profile_form.as_p}}
+  <input type="submit"value="변경">
+  <a href="{% url 'mypage' %}"><button type="button">취소</button></a>
+</form>
+
+<a href="{% url 'index' %}">home</a>
 
 <script>
   document.getElementById("id_profile_image").style.visibility = 'hidden';
-  $("label[for='id_intro']").text('인사말');
-  $("label[for='id_profile_image']").text('');
+  $("label[for='id_intro']").text('ㅁ');
 </script>

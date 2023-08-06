@@ -1,42 +1,45 @@
-
+<h1>회원가입</h1>
 
 {% if messages %}
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {% for message in messages %}
-  <strong>{{ message.message }}</strong>
-  {% endfor %}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+{% for message in messages %}
+에러 메시지 : {{ message.message }}
+{% endfor %}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
 {% endif %}
 
 <form method="POST" action="" class="sign-up-form" class="sign-in-form" enctype="multipart/form-data">
-    {%csrf_token%}  
-    <br>
-    <div class="d-flex justify-content-center">
-    <br>
-    </div>
-    <div class="card-body text-success">
-    </div>
-    <div class="form-group">
-        아이디 <small class="text-muted">15자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.</small>
-        <input type="text" name="user-username" class="form-control" placeholder="아이디" maxlength="15" autofocus required id="id_user-username">
-      </div>
-      <div class="form-group">
-          <label for="exampleInputPassword1">비밀번호 <small class="text-muted">비밀번호는 최소 8자 이상이어야 합니다.</small></label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" name="user-password1" required id="id_user-password1">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">비밀번호 확인 <small class="text-muted">비밀번호는 전부 숫자로 할 수 없습니다.</small></label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호 확인" name="user-password2" required id="id_user-password2">
-          </div>
-      <div class="form-group">
-          <label for="exampleFormControlTextarea1">소개</label>
-          <textarea class="form-control" id="id_profile-intro" rows="3" name="profile-intro"></textarea>
-        </div>
-      <button type="submit" class="save btn btn-outline-dark">회원가입</button>
-      <a href="{% url 'index' %}">
-        <button type="button" class="btn btn-outline-dark">취소</button>
-      </a>
-  </form>
+  {%csrf_token%}
+
+  <div class="form-group">
+    <label for="user-username">아이디 : </label>
+    <input type="text" name="user-username" class="form-control" placeholder="아이디" maxlength="15" autofocus required
+      id="id_user-username">
+    <br><small class="text-muted"> * 15자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.</small>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="exampleInputPassword1">비밀번호 : </label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" name="user-password1"
+      required id="id_user-password1">
+    <br><small class="text-muted">비밀번호는 최소 8자 이상이어야 합니다.</small>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="exampleInputPassword2">비밀번호 확인 : </label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호 확인" name="user-password2"
+      required id="id_user-password2">
+    <br><small class="text-muted">비밀번호는 전부 숫자로 할 수 없습니다.</small>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">소개 : <br></label>
+    <textarea class="form-control" id="id_profile-intro" rows="3" name="profile-intro"></textarea>
+  </div>
+  <br>
+  <button type="submit" class="save btn btn-outline-dark">회원가입</button>
+  <a href="{% url 'index' %}">
+    <button type="button" class="btn btn-outline-dark">취소</button>
+  </a>
+</form>

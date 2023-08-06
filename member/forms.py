@@ -33,7 +33,7 @@ class ProfileForm(forms.ModelForm):
 
         labels = {
             # 'profile_image': '프로필 사진',
-            'intro': '인사말',
+            'intro': '자기소개',
         }
 
 class UserCreationMultiForm(MultiModelForm):
@@ -62,5 +62,5 @@ class ProfileUpdateForm(forms.ModelForm):
 
         labels = {
             # 'profile_image': '프로필 사진',
-            'intro': '인사말',
+            'intro': '자기소개',
         }
