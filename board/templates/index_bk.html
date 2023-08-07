@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <P>로그인 완료 플로우</P>
+        <span id="user_name">{{ user.username }}</span>님 반갑습니다!
+        <a href="{% url 'mypage' %}">마이페이지</a>
+        <a href="{% url 'post' %}">글쓰기</a>
+        <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+        <P>미로그인 플로우</P>
+        <a href="{% url 'login' %}">로그인</a>
+        <a href="{% url 'signup' %}">회원가입</a>
+    {% endif %}
+
+    <hr>
+    글목록
+    {% for memo in memo %}
+    <hr>
+    {% if user.is_authenticated %}
+        작성자 (로그인 되어있으면 프로필 조회 페이지 이동) : <a href="{% url 'userpage' memo.name  %}"><span> {{memo.name }}</span></a>
+    {% else %}
+        작성자 (미로그인 시 프로필 조회 불가)<a>{{ memo.name }}</a>
+    {% endif %}
+    <a href="{% url 'detail' memo.id %}">글 상세 이동</a>
+    <p>test 1 : {{memo.text1}}</p>
+    <p>test 2 : {{memo.text2}}</p>
+    <p>test 3 : {{memo.text3}}</p>
+    <small><p>글 작성, 최종 수정 시간 : {{memo.update_date}}</p></small>
+
+    <small><spand="count{{ memo.id }}">{{ memo.total_likes }} like</span></small>
+    <small>{{memo.comments.count}} comment</small>
+    <hr>
+    {% endfor %}
+
+{% endblock %}
