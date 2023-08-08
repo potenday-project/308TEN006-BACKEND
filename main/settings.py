@@ -149,6 +149,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
+# S3 Live Check
+if os.path.isfile('/Users/int/Development/workspace/308TEN006-BACKEND/local.py') is False : 
+    DEFAULT_FILE_STORAGE = 'main.storages.MediaStorage'
+    STATICFILES_STORAGE = 'main.storages.StaticStorage'
+
+    MEDIAFILES_LOCATION = 'media'
+    STATICFILES_LOCATION = 'static'
+
+    AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = get_secret("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = get_secret("AWS_STORAGE_BUCKET_NAME")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
