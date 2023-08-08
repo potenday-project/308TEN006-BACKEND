@@ -18,6 +18,10 @@
     <textarea class="form-control" rows="3" name="text3" cols="40" rows="10" maxlength="150" required id="id_text""></textarea>
     <h6 class="pull-right" id="count_message"></h6>
   </div>
+  <div class="form-group">
+    <label for="id_img">Img : <br></label>
+    <input type="file" name="images" accept="image/*">
+  </div>
 
     <button type="submit" class="save btn btn-outline-dark">저장</button>
     <a href="{% url 'index' %}">

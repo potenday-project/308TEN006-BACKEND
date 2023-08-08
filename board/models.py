@@ -14,6 +14,7 @@ class Memos(models.Model):
     text2 = models.TextField(max_length = 150, null=True)
     tag_set2 = models.ManyToManyField('Tag2', blank=True)
     text3 = models.TextField(max_length = 150, null=True)
+    images = models.ImageField(blank=True, upload_to="images", null=True)
 
     # NOTE: content에서 tags를 추출하여, Tag 객체 가져오기, 신규 태그는 Tag instance 생성, 본인의 tag_set에 등록,
     def tag_save(self):

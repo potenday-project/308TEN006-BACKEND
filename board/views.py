@@ -26,6 +26,7 @@ def post(request):
         if form.is_valid(): 
             post = form.save(commit = False)
             post.name = User.objects.get(username = request.user.get_username())
+            post.images = request.FILES['images']
             post.generate()
             post.tag_save()
             post.tag_save2()

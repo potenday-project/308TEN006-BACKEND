@@ -22,6 +22,17 @@
 <p>test 1: {{ memo.text1 }}</p>
 <p>test 2: {{ memo.text2 }}</p>
 <p>test 3: {{ memo.text3 }}</p>
+<p>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">사진 <small class="text-muted">권장 크기 : 150 * 150</small></label>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center">
+      <img src="{{ memo.images.url }}" class="form-control-file" id="id_profile-profile_image" name="profile-profile_image" alt="secret" style="width: 150px; height: 150px;">
+    </div>
+    <br>
+  </div>
+</p>
 <a class="card-text"><small class="text-muted">글 작성 시간: {{ memo.update_date }}</small></a>
 
 <hr>
