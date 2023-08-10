@@ -1,147 +1,147 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-      <symbol id="check2" viewBox="0 0 16 16">
-        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-      </symbol>
-      <symbol id="circle-half" viewBox="0 0 16 16">
-        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
-      </symbol>
-      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
-        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
-        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-      </symbol>
-      <symbol id="sun-fill" viewBox="0 0 16 16">
-        <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
-      </symbol>
-    </svg>
-
-    <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="bd-theme-text">
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
-            <svg class="bi me-2 opacity-50 theme-icon" width="1em" height="1em"><use href="#circle-half"></use></svg>
-            Auto
-            <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
-          </button>
-        </li>
-      </ul>
-    </div>
-
-    
-<header data-bs-theme="dark">
-  <div class="collapse text-bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4 offset-md-1 py-4">
-          {% if user.is_authenticated %}
-            <h4><span id="user_name">{{ user.username }}</span>님 반갑습니다!</h4>
-            <ul class="list-unstyled">
-              <li><a href="{% url 'mypage' %}" class="text-white">mypage</a></li>
-              <li><a href="{% url 'post' %}" class="text-white">post</a></li>
-              <li><a href="{% url 'logout' %}" class="text-white">logout</a></li>
-            </ul>
-          {% else %}
-            <ul class="list-unstyled">
-              <li><a href="{% url 'login' %}" class="text-white">login</a></li>
-              <li><a href="{% url 'signup' %}" class="text-white">signup</a></li>
-            </ul>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Atee</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
-        </span>
-        
-      </button>
-    </div>
-  </div>
-</header>
 
 <main>
 
-  <section class="py-4 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <svg class="bd-placeholder-img card-img-top" width="300" height="300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-      </div>
-    </div>
-  </section>
-
-  <div class="container">
-    <h1>Category</h1>
-    <div class="col-lg-4 d-flex flex-row grid gap-4">
-      <div class="div">
-        <svg class="bd-placeholder-img rounded-circle" width="70" height="70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h5 class="fw-normal">catego1</h5>
-      </div>
-      <div class="div">
-        <svg class="bd-placeholder-img rounded-circle" width="70" height="70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h5 class="fw-normal">catego2</h5>
-      </div>
-      <div class="div">
-        <svg class="bd-placeholder-img rounded-circle" width="70" height="70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h5 class="fw-normal">catego3</h5>
-      </div>
-      <div class="div">
-        <svg class="bd-placeholder-img rounded-circle" width="70" height="70" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <h5 class="fw-normal">catego3</h5>
-      </div>
-    </div>
+  <div class="position-fixed bottom-0 end-0 mb-3 bd-mode-toggle" style="margin-right: 22.5rem!important;">
+    <a href="{% url 'post' %}" class="btn btn-bd-primary py-2 d-flex align-items-center">
+      <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
+        <use href="#circle-half"></use>
+      </svg>
+    </a>
   </div>
 
-  <div class="album py-4">
+  <section class="py-3 text-center container d-flex justify-content-center">
+
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 320px;">
+
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{% static 'img/banner_1.jpg' %}" class="d-block w-100 h-100" alt="banner_1" style="border-radius: 16px;">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/banner_2.jpg' %}" class="d-block w-100 h-100" alt="banner_2" style="border-radius: 16px;">
+          </div>
+          <div class="carousel-item">
+              <img src="{% static 'img/banner_3.jpg' %}" class="d-block w-100 h-100" alt="banner_3" style="border-radius: 16px;">
+          </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
+        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+        <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <div class="album py-3">
     <div class="container">
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+            </svg>
+            <p class="fw-normal text-center">서핑</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">다이빙</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">레이싱</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">글라이딩</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+            </svg>
+            <p class="fw-normal text-center">서핑</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">다이빙</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">레이싱</p>
+          </div>
+          <div class="col-lg-3">
+            <svg class="bd-placeholder-img rounded-circle" width="64" height="64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+            <p class="fw-normal text-center">글라이딩</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <p>지금 뜨는 후기</p>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
 
         {% for memo in memo %}
         <a href="{% url 'detail' memo.id %}">
-          <div class="col">
-            <div class="card shadow-sm">
-              <img class="bd-placeholder-img card-img-top" src="https://atee-s3.s3.ap-northeast-2.amazonaws.com/media/{{ memo.images }}"  width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <div class="col d-flex justify-content-center">
+            <div class="card shadow-sm" style="width: 320px; border-radius: 15px;">
+              <img src="{% static 'img/banner_1.jpg' %}" class="custom-image" alt="banner_1" style="border-top-left-radius: 15px; border-top-right-radius: 16px; width: 100%;">
               <div class="card-body">
-                <p class="card-text">타이틀 : "{{memo.text2}}" (해당 부분 정책 필요)</p>
+                <p class="card-text">{{memo.title}}</p>
+                <p class="card-text">{{memo.text}}</p>
+                <!-- 해시태그 영역 -->
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <small class="btn btn-sm btn-outline-secondary">
-                      <spand="count{{ memo.id }}">{{ memo.total_likes }} like</span>
-                    </small>
-                    <small class="btn btn-sm btn-outline-secondary">
-                      {{memo.comments.count}} comment
-                    </small>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">#서핑</button>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                      <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+                    </svg>
+                    {{memo.district}}
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                      <spand="count{{ memo.id }}">{{ memo.total_likes }}</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                      {{memo.comments.count}}
+                    </button>
                   </div>
                   <small class="text-body-secondary">{{memo.create_date}}</small>
                 </div>
+  
               </div>
             </div>
           </div>
+
         </a>
         {% endfor %}
 
@@ -150,19 +150,5 @@
   </div>
 
 </main>
-
-<!-- footer 주석 처리
-<footer class="text-body-secondary py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-  </div>
-</footer>
--->
-
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
 {% endblock %}

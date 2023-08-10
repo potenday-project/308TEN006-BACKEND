@@ -19,6 +19,10 @@ def index(request, tag=None):
     memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})
 
+def indexf(request, tag=None):
+    memo = Memos.objects.all()
+    return render(request, 'index_f.html', {'memo': memo})
+
 def post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
