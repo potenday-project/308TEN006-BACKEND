@@ -19,10 +19,6 @@ def index(request, tag=None):
     memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})
 
-def indexf(request, tag=None):
-    memo = Memos.objects.all()
-    return render(request, 'index_f.html', {'memo': memo})
-
 def post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -34,7 +30,7 @@ def post(request):
             post.generate()
             post.tag_save()
             post.save()
-            return redirect('index')
+            return redirect('/')
         else:
             return HttpResponse("폼이 유효하지 않습니다")
     else:
