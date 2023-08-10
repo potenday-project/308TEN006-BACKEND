@@ -1,61 +1,96 @@
-<h1>글 쓰기 페이지</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-<form method="POST" class="post-form" enctype="multipart/form-data">
-  {%csrf_token%}
-  <p>
-    <label for="id_img">Img : <br></label>
-    <input type="file" name="images" accept="image/*" id="id_img">
-  </p>
-  <p>
-    <label for="id_title">제목:</label>
-    <input type="text" name="title" class="form-control" maxlength="150" required id="id_title">
-  </p>
-  <p>
-    <label for="id_text">내용:</label>
-    <input type="text" name="text" class="form-control" maxlength="500" required id="id_text">
-  </p>
-  <p>
-    <label for="id_experience_date">체험 날짜:</label>
-    <input type="date" name="experience_date" value="1999-12-31" required id="id_experience_date">
-  </p>
-  <p>
-    <label for="id_price">가격:</label>
-    <input type="text" name="price" class="form-control" required id="id_price">
-  </p>
-  <p>
-    <label for="id_district">지역:</label>
-    <input type="text" name="district" class="form-control" maxlength="50" required id="id_district">
-  </p>
-  <p>
-    <label for="id_platform">예약 플랫폼:</label>
-    <input type="text" name="platform" class="form-control" maxlength="150" required id="id_platform">
-  </p>
-  <p>
-    <label for="id_tag_text">태그:</label>
-    <input type="text" name="tag_text" class="form-control" maxlength="150" required id="id_tag_text">
-  </p>
-  <p>
-    <label for="id_category">카테고리:</label>
-    <input type="text" name="category" value="전체" class="form-control" maxlength="50" required="" id="id_category">
-  </p>
+<main>
 
-  <button type="submit" class="save btn btn-outline-dark">저장</button>
-  <a href="{% url 'index' %}">
-    <button type="button" class="btn btn-outline-dark">취소</button>
-  </a>
-</form>
+  <div class="album py-3">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+
+        <form method="POST" class="post-form" enctype="multipart/form-data">
+          {%csrf_token%}
+          <p>
+            <label for="id_img" class="upload-label py-3 text-center container d-flex justify-content-center">
+                <img id="uploaded-image" src="{% static 'img/banner_1.jpg' %}" class="d-block w-50 h-50" alt="Uploaded Image" style="border-radius: 16px;">
+            </label>
+            <input type="file" name="images" accept="image/*" id="id_img" style="display: none;">
+          </p>
+
+          <p>
+            <input type="text" name="title" class="form-control" maxlength="150" required id="id_title" placeholder="제목을 작성해주세요.">
+          </p>
+
+          <hr class="my-4">
+
+          <p>
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="체험하신 액티비티를 공유해주세요!" id="id_text" name="text" required style="height: 100px"></textarea>
+              <label for="id_text">체험하신 액티비티를 공유해주세요!</label>
+            </div>
+          </p>
+
+          <hr class="my-4">
+
+          <div class="row gy-3">
+            
+            <div class="col-md-6">
+              <input type="date" class="form-control" name="experience_date" value="1999-12-31" required id="id_experience_date">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="district" class="form-control" maxlength="50" required id="id_district" placeholder="위치">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" name="price" class="form-control" required id="id_price" placeholder="비용">
+            </div>
 
 
-<script type="text/javascript">
+            <div class="col-md-6">
+              <input type="text" name="platform" class="form-control" maxlength="150" required id="id_platform" placeholder="예약한 플랫폼 / 링크">
+            </div>
 
-  var text_max = 0;
-  $('#count_message').html(text_max + ' / 150');
+          </div>
 
-  $('#id_text').keyup(function () {
-    var text_length = $('#id_text').val().length;
-    var text_remaining = text_max + text_length;
+          <hr class="my-4">
 
-    $('#count_message').html(text_remaining + ' / 150');
+          <p>
+            <label for="id_tag_text">해시태그</label>
+            <input type="text" name="tag_text" class="form-control" maxlength="150" required id="id_tag_text">
+          </p>
+
+          <p>
+            <input type="text" name="category" value="전체" class="form-control" maxlength="50" required="" id="id_category" style="display: none;">
+          </p>
+
+          <button type="submit" class="save btn btn-outline-dark">저장</button>
+          <a href="{% url 'index' %}">
+            <button type="button" class="btn btn-outline-dark">취소</button>
+          </a>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const input = document.getElementById('id_img');
+  const uploadedImage = document.getElementById('uploaded-image');
+
+  input.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+              uploadedImage.src = event.target.result;
+          }
+          reader.readAsDataURL(file);
+      }
   });
-
 </script>
+
+{% endblock %}
