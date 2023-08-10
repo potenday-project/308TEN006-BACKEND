@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from .forms import PostForm
 from django.contrib import messages
-from .models import Memos, Comment, Tag, Tag2
+from .models import Memos, Comment, Tag
 from member.models import Profile
 from django.db.models import Count
 from django.http import HttpResponse, HttpResponseRedirect
@@ -15,7 +15,7 @@ from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy
 from django.db.models import Q
 
-def index(request, tag=None, tag2=None):
+def index(request, tag=None):
     memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})
 
@@ -24,17 +24,18 @@ def post(request):
         form = PostForm(request.POST, request.FILES)
         
         if form.is_valid(): 
-            post = form.save(commit = False)
-            post.name = User.objects.get(username = request.user.get_username())
-            post.images = request.FILES['images']
+            post = form.save(commit=False)
+            post.name = User.objects.get(username=request.user.get_username())
+            post.images = request.FILES.get('images')  # KeyError를 피하기 위해 get()을 사용합니다
             post.generate()
             post.tag_save()
-            post.tag_save2()
             post.save()
             return redirect('index')
+        else:
+            return HttpResponse("폼이 유효하지 않습니다")
     else:
         form = PostForm() 
-        return render(request, 'post.html', {'form' : form})
+        return render(request, 'post.html', {'form': form})
 
 def detail(request, memo_id):
     memo = get_object_or_404(Memos, pk=memo_id)
