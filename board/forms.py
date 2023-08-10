@@ -5,12 +5,12 @@ class PostForm(forms.ModelForm):
     price = forms.DecimalField(
         label='가격',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
-        decimal_places=0  # 소수점 이하 자리수
+        decimal_places=0
     )
 
     class Meta:
         model = Memos
-        fields = ['title', 'text', 'experience_date', 'price', 'district', 'platform', 'tag_text']
+        fields = ['title', 'text', 'experience_date', 'price', 'district', 'platform', 'tag_text', 'category']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -20,6 +20,7 @@ class PostForm(forms.ModelForm):
             'district': forms.TextInput(attrs={'class': 'form-control'}),
             'platform': forms.TextInput(attrs={'class': 'form-control'}),
             'tag_text': forms.TextInput(attrs={'class': 'form-control'}),
+            'category': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
         labels = {
@@ -29,11 +30,11 @@ class PostForm(forms.ModelForm):
             'district': '지역',
             'platform': '예약 플랫폼',
             'tag_text': '태그',
+            'category': '카테고리',
         }
 
     def clean_price(self):
         price = self.cleaned_data.get('price')
         if price is not None:
-            # 가격에 세자리마다 쉼표 추가
             formatted_price = format(price, ',')
             return formatted_price

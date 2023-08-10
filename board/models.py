@@ -6,6 +6,7 @@ import re
 
 
 class Memos(models.Model):
+    category = models.TextField(verbose_name='카테고리', max_length = 50, null=True, default='전체')
     images = models.ImageField(verbose_name='이미지', blank=True, upload_to="images", null=True, default='')
     title = models.TextField(verbose_name='제목', max_length = 150, db_column='제목', null=True, default='')
     text = models.TextField(verbose_name='내용', max_length = 500, db_column='내용', null=True, default='')
@@ -15,14 +16,10 @@ class Memos(models.Model):
     platform = models.TextField(verbose_name='플랫폼', max_length = 150, null=True, default='')
     tag_text = models.TextField(verbose_name='Tag', max_length = 150, null=True)
     tag_set = models.ManyToManyField('Tag', blank=True)
-    
-
     create_date = models.DateTimeField()
     name = models.ForeignKey(User, on_delete = models.CASCADE,null=True)
     likes = models.ManyToManyField(User, related_name='likes')
-    
 
-    # NOTE: content에서 tags를 추출하여, Tag 객체 가져오기, 신규 태그는 Tag instance 생성, 본인의 tag_set에 등록,
     def tag_save(self):
         tags = re.findall(r'#(\w+)\b', self.tag_text)
 
@@ -31,7 +28,7 @@ class Memos(models.Model):
 
         for t in tags:
             tag, tag_created = Tag.objects.get_or_create(tag_name=t)
-            self.tag_set.add(tag)  # NOTE: ManyToManyField 에 인스턴스 추가
+            self.tag_set.add(tag)
             
     def generate(self):
         self.create_date = timezone.now()
@@ -55,7 +52,6 @@ class Comment(models.Model):
             
     def __str__(self):
         return str(self.comment_writer)
-
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=140, unique=True)

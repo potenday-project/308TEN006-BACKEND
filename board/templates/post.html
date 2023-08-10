@@ -30,15 +30,16 @@
     <label for="id_tag_text">태그:</label>
     <input type="text" name="tag_text" class="form-control" maxlength="150" required id="id_tag_text">
   </p>
+  <p>
+    <label for="id_category">카테고리:</label>
+    <input type="text" name="category" value="전체" class="form-control" maxlength="50" required="" id="id_category">
+  </p>
 
   <button type="submit" class="save btn btn-outline-dark">저장</button>
   <a href="{% url 'index' %}">
     <button type="button" class="btn btn-outline-dark">취소</button>
   </a>
 </form>
-
-
-
 
 
 <script type="text/javascript">
