@@ -1,17 +1,21 @@
 <h1>프로필 수정하기</h1>
-
 <h3>"{{user.username}}"님의 프로필 수정</h3>
-
 <form method="POST" enctype="multipart/form-data" action="">
   {%csrf_token%}
-  {{profile_form.as_p}}
-  <input type="submit"value="변경">
+  <p>
+    <label for="id_intro">자기소개:</label>
+    <input type="text" name="intro" value="asd" class="form-control" maxlength="200" id="id_intro">
+  </p>
+  <p>
+    <label for="id_profile_image">프로필 사진:</label>
+    <input type="file" name="profile_image" class="form-control-file" accept="image/*" id="id_profile_image">
+  </p>
+  <p>
+    <label for="id_nick">닉네임:</label>
+    <input type="text" name="nick" value="admin1" class="form-control" maxlength="50" id="id_nick">
+  </p>
+  <input type="submit" value="변경">
   <a href="{% url 'mypage' %}"><button type="button">취소</button></a>
 </form>
 
 <a href="{% url 'index' %}">home</a>
-
-<script>
-  document.getElementById("id_profile_image").style.visibility = 'hidden';
-  $("label[for='id_intro']").text('ㅁ');
-</script>

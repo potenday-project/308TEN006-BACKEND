@@ -1,4 +1,79 @@
-<h1>마이 페이지</h1>
+{% load static %}
+<!doctype html>
+<html lang="ko" data-bs-theme="auto">
+
+<head>
+    <script src="{% static 'assets/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.115.4">
+    <title>Atee</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <header data-bs-theme="light">
+        <div class="navbar navbar-light">
+            <div class="container">
+                <a href="{% url 'signup_1' %}" class="navbar-brand d-flex align-items-center hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </a>
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
+                    <strong>마이페이지</strong>
+                </a>
+                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+            </div>
+        </div>
+    </header>
+    <body>
+        <main>
+            <section class="py-3 text-center container d-flex justify-content-center">
+                <div class="modal-content rounded-4">
+
+                    <div class="d-flex justify-content-center">
+                        <img src="{% static 'img/atee_logo.png' %}" alt="Profile Image 1" class="mb-3">
+                    </div>
+                    
+                    <div class="d-flex justify-content-center">
+                        <img src="{{ profile_pic }}" alt="Profile Image 1" class="w-50 rounded-circle">
+                    </div>
+                    
+
+                    <h5 class="fs-6 fw-bold mb-3 mt-3">
+                        {{nick}}님
+                    </h5>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control rounded-3" id="id_profile-intro" rows="5" name="profile-intro" disabled></textarea>
+                        <label for="user-password2">{{intro | linebreaksbr}}</label>
+                      </div>
+                    <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit" onclick="redirectToIndex()">
+                        프로필 수정하기
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <script>
+            function redirectToIndex() {
+                window.location.href = "{% url 'profile_update' %}";
+            }
+        </script>
+        
+    </body>
+</html>
+
+
+
+
+
+<!-- <h1>마이 페이지</h1>
 
 <h3>"{{id}}"님의 프로필</h3>
 
@@ -10,4 +85,4 @@
 <p>자기소개가 없습니다.</p>
 {% endif %}
 
-<a href="{% url 'index' %}">home</a>
+<a href="{% url 'index' %}">home</a> -->
