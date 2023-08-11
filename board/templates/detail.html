@@ -21,13 +21,13 @@
               <div class="dropdown text-end">
                 {% if user.is_authenticated %}
                 <a href="{% url 'userpage' memo.name  %}" class="d-block link-body-emphasis text-decoration-none">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                  <span class="writer_name">{{ memo.name }}</span>
+                  <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                  <span class="writer_name">{{conn_profile.nick}}</span>
                 </a>
                 {% else %}
                 <div class="d-block link-body-emphasis text-decoration-none">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                  <span class="writer_name">{{ memo.name }}</span>
+                  <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                  <span class="writer_name">{{conn_profile.nick}}</span>
                 </div>
                 {% endif %}
               </div>
@@ -133,7 +133,7 @@
 
         <div class="col d-flex justify-content-center">
           {% if user.is_authenticated %}
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
             <form class="form-inline" action="{% url 'comment_write' memokey=memo.pk %}" method="POST">
               {% csrf_token %}
               <div class="input-group mb-3">
@@ -155,59 +155,47 @@
           {% endif %}
         </div>
 
+        
         <div class="col d-flex justify-content-center">
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            <div style="width: 320px;">
-              <div>
+          {% if memo.comments.all %}
+          {% for comment in memo.comments.all %}
+          <img src="{{comment.comment_writer_img.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
+          <div style="width: 320px;">
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-
-                    {% if memo.comments.all %}
-                    {% for comment in memo.comments.all %}
                     {% if user.is_authenticated %}
-                    <a class="fw-bolder" href="{% url 'userpage' comment.comment_writer %}"
-                      style="margin-bottom: 0.25rem; font-size: 16px;"></a>
-                    <span class="comment_writer_name">
-                      {{ comment.comment_writer }}
-                    </span>
-                    </a>
-                    {% else %}
-                    <span class="comment_writer_name">
-                      {{ comment.comment_writer }}
-                    </span>
-                    {% endif %}
-
-                    {% if user.is_authenticated and user.username == comment.comment_writer %}
-                    <span class="control">
-                      <a href="{% url 'comment_delete' memo.pk comment.pk %}" onclick="return confirm('정말 삭제하시겠습니까?')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-trash" viewBox="0 0 16 16">
-                          <path
-                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                          <path
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                        </svg>
+                      <a class="fw-bolder" href="{% url 'userpage' comment.comment_writer %}" style="margin-bottom: 0.25rem; font-size: 16px;">
+                        <span class="comment_writer_name">
+                          {{ comment.comment_writer }}
+                        </span>
                       </a>
-                    </span>
+                    {% else %}
+                      <span class="comment_writer_name">
+                        {{ comment.comment_writer }}
+                      </span>
                     {% endif %}
-
+                    {% if user.is_authenticated and user.username == comment.comment_writer %}
+                      <span class="control">
+                        <a href="{% url 'comment_delete' memo.pk comment.pk %}" onclick="return confirm('정말 삭제하시겠습니까?')">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                          </svg>
+                        </a>
+                      </span>
+                    {% endif %}
                     <small class="text-body-secondary">{{ comment.comment_date }}</small>
                   </div>
                 </div>
-
                 <p class="fw-normal" style="font-size: 14px;">
                   {{ comment.comment_contents }}
                 </p>
-
-                {% endfor %}
-                {% else %}
-                <p class="card-text">댓글이 없습니다.</p>
-                {% endif %}
-
-              </div>
-
+              {% endfor %}
+          {% else %}
+            <p class="card-text">댓글이 없습니다.</p>
+          </div>
+          {% endif %}
         </div>
-
       </div>
     </div>
   </div>
