@@ -3,14 +3,11 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
-from django.views.generic.edit import CreateView
-from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
-from django.views import generic, View
+from django.views import View
 from django.contrib.auth.decorators import login_required
-from .forms import UserCreationMultiForm, ProfileForm, ProfileUpdateForm
+from .forms import UserCreationMultiForm, ProfileUpdateForm
 from django.core.files import File
 from urllib.request import urlopen
 from django.core.files.temp import NamedTemporaryFile

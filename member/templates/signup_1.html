@@ -1,41 +1,126 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ko" data-bs-theme="auto">
+
 <head>
-    <title>Page 1 - Choose Profile Picture</title>
+    <script src="{% static 'assets/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.115.4">
+    <title>Atee</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+    <style>
+        
+        input[type="radio"] {
+            display: none;
+        }
+
+        .img-container {
+            display: flex;
+            gap: 10px; /* 이미지 간격을 20px로 조절 */
+            justify-content: center; /* 이미지들을 가운데 정렬 */
+        }
+
+        .navbar-brand.hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+        .selected-img {
+            opacity: 0.4; /* 40% 투명도 설정 */
+        }
+
+    </style>
 </head>
+
 <body>
-    <h1>Choose Your Profile Picture</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label>
-            <input type="radio" name="selected_img" value="Atee_BG_1.png">
-            <img src="{% static 'img/Atee_BG_1.png' %}" alt="Profile Image 1" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_2.png"> 
-            <img src="{% static 'img/Atee_BG_2.png' %}" alt="Profile Image 2" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_3.png">
-            <img src="{% static 'img/Atee_BG_3.png' %}" alt="Profile Image 3" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_4.png">
-            <img src="{% static 'img/Atee_BG_4.png' %}" alt="Profile Image 4" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_5.png">
-            <img src="{% static 'img/Atee_BG_5.png' %}" alt="Profile Image 5" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_6.png">
-            <img src="{% static 'img/Atee_BG_6.png' %}" alt="Profile Image 6" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_7.png">
-            <img src="{% static 'img/Atee_BG_7.png' %}" alt="Profile Image 7" width="154" height="154">
-            <br>
-            <input type="radio" name="selected_img" value="Atee_BG_8.png">
-            <img src="{% static 'img/Atee_BG_8.png' %}" alt="Profile Image 8" width="154" height="154">
-            <br>
-        </label>
-        <br>
-        <input type="submit" value="Next">
-    </form>
-</body>
+    
+    <header data-bs-theme="light">
+        <div class="navbar navbar-light">
+            <div class="container">
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center hidden">
+                    <strong>Atee</strong>
+                </a>
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
+                    <strong>프로필 만들기</strong>
+                </a>
+                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+            </div>
+        </div>
+    </header>
+
+    <body>
+        <main>
+            <section class="py-3 text-center container d-flex justify-content-center">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-2 img-container">
+                        <input type="radio" name="selected_img" value="Atee_BG_1.png" id="img1_radio">
+                        <img src="{% static 'img/Atee_BG_1.png' %}" alt="Profile Image 1" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img1_radio')">
+                        <input type="radio" name="selected_img" value="Atee_BG_2.png" id="img2_radio">
+                        <img src="{% static 'img/Atee_BG_2.png' %}" alt="Profile Image 2" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img2_radio')">
+                    </div>
+                    <div class="mb-2 img-container">
+                        <input type="radio" name="selected_img" value="Atee_BG_3.png" id="img3_radio">
+                        <img src="{% static 'img/Atee_BG_3.png' %}" alt="Profile Image 3" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img3_radio')">
+                        <input type="radio" name="selected_img" value="Atee_BG_4.png" id="img4_radio">
+                        <img src="{% static 'img/Atee_BG_4.png' %}" alt="Profile Image 4" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img4_radio')">
+                    </div>
+                    <div class="mb-2 img-container">
+                        <input type="radio" name="selected_img" value="Atee_BG_5.png" id="img5_radio">
+                        <img src="{% static 'img/Atee_BG_5.png' %}" alt="Profile Image 5" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img5_radio')">
+                        <input type="radio" name="selected_img" value="Atee_BG_6.png" id="img6_radio">
+                        <img src="{% static 'img/Atee_BG_6.png' %}" alt="Profile Image 6" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img6_radio')">
+                    </div>
+                    <div class="mb-2 img-container">
+                        <input type="radio" name="selected_img" value="Atee_BG_7.png" id="img7_radio">
+                        <img src="{% static 'img/Atee_BG_7.png' %}" alt="Profile Image 7" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img7_radio')">
+                        <input type="radio" name="selected_img" value="Atee_BG_8.png" id="img8_radio">
+                        <img src="{% static 'img/Atee_BG_8.png' %}" alt="Profile Image 8" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img8_radio')">
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <script>
+        
+            function handleImageClick(radioId) {
+                var radio = document.getElementById(radioId);
+
+                if (radio) {
+                    radio.checked = true;
+
+                    // 이미 선택된 이미지의 클래스를 초기화
+                    var selectedImages = document.getElementsByClassName('selected-img');
+                    for (var i = 0; i < selectedImages.length; i++) {
+                        selectedImages[i].classList.remove('selected-img');
+                    }
+
+                    // 선택된 이미지에 클래스를 추가하여 스타일을 적용
+                    var image = radio.nextElementSibling;
+                    if (image) {
+                        image.classList.add('selected-img');
+                    }
+                }
+            }
+
+
+            function handleNextButtonClick() {
+                // 폼 가져오기
+                var form = document.querySelector('form');
+
+                // 폼 제출
+                if (form) {
+                    form.submit();
+                }
+            }
+
+        </script>
+        
+    </body>
 </html>
