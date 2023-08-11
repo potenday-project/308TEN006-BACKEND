@@ -16,7 +16,7 @@ from .models import Profile
 def signup(request):
     if request.method == 'POST':
         if request.POST['user-password1'] == request.POST['user-password2']:
-            form = UserCreationMultiForm(request.POST)
+            form = UserCreationMultiForm(request.POST, request.FILES)
             if form.is_valid(): 
                 user = form['user'].save()
                 profile = form['profile'].save(commit=False)
@@ -27,7 +27,7 @@ def signup(request):
                 return redirect('index')
             else:
                 user = request.POST['user-username']
-                user = User.objects.get_object_or_404(username=user)
+                user = User.objects.get(username=user)
                 messages.info(request, '아이디가 중복됩니다.')
                 return render(request, 'signup.html')
         else:
@@ -52,9 +52,15 @@ def userinfo(request):
     conn_user = request.user
     conn_profile = Profile.objects.get(user=conn_user)
 
+    if not conn_profile.profile_image:
+        pic_url = ""
+    else:
+        pic_url = conn_profile.profile_image.url
+            
     context = {
         'id' : conn_user.username,
         'nick' : conn_profile.nick,
+        'profile_pic' : pic_url,
         'intro' : conn_profile.intro,
     }
 
@@ -64,10 +70,16 @@ def userinfo(request):
 def user_select_info(request, writer):
     select_profile = Profile.objects.get(nick=writer)
     select_user = select_profile.user
+
+    if not select_profile.profile_image:
+        pic_url = ""
+    else:
+        pic_url = select_profile.profile_image.url
             
     context = {
         'id' : select_user.username,
         'nick' : select_profile.nick,
+        'profile_pic' : pic_url,
         'intro' : select_profile.intro
     }
 
@@ -83,6 +95,7 @@ class ProfileUpdateView(View):
             profile_form = ProfileUpdateForm(initial={
                 'nick': profile.nick,
                 'intro': profile.intro,
+                'profile_image': profile.profile_image,
             })
         else:
             profile_form = ProfileUpdateForm()
@@ -105,9 +118,15 @@ class ProfileUpdateView(View):
             profile.user = u
             profile.save()
 
+            if not profile.profile_image:
+                pic_url = ""
+            else:
+                pic_url = profile.profile_image.url
+                    
             context = {
                 'id' : u.username,
                 'nick' : profile.nick,
+                'profile_pic' : pic_url,
                 'intro' : profile.intro,
             }
 

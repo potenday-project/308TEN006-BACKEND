@@ -28,12 +28,12 @@ class CreateUserForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        # fields = ['profile_image', 'intro',]
-        fields = ['intro',]
+        fields = ['profile_image', 'intro', 'nick']
 
         labels = {
-            # 'profile_image': '프로필 사진',
+            'profile_image': '프로필 사진',
             'intro': '자기소개',
+            'nick': '닉네임'
         }
 
 class UserCreationMultiForm(MultiModelForm):
@@ -52,15 +52,16 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        # fields = ['intro','profile_image']
-        fields = ['intro']
+        fields = ['intro','profile_image', 'nick']
 
         widgets = {
             'intro': forms.TextInput(attrs={'class': 'form-control'}),
-            # 'profile_image' : forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'profile_image' : forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'nick': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
         labels = {
-            # 'profile_image': '프로필 사진',
+            'profile_image': '프로필 사진',
             'intro': '자기소개',
+            'nick': '닉네임',
         }
