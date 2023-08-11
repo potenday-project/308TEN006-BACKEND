@@ -51,7 +51,7 @@ def signup(request, profile_img, nickname):
                 profile.nick = nickname
                 profile.save()
                 auth.login(request, user)
-                return redirect('index')
+                return redirect('complete')
             else:
                 user = request.POST['user-username']
                 user = User.objects.get(username=user)
@@ -62,7 +62,8 @@ def signup(request, profile_img, nickname):
             return render(request, 'signup.html')
     return render(request, 'signup.html', {'profile_img':profile_img, 'nickname': nickname})
 
-
+def complete(request):
+    return render(request, 'complete.html')
 
 class Loginviews(LoginView):
     template_name = 'login.html'

@@ -1,3 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="ko" data-bs-theme="auto">
+
+<head>
+    <script src="{% static 'assets/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.115.4">
+    <title>Atee</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <header data-bs-theme="light">
+        <div class="navbar navbar-light">
+            <div class="container">
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </a>
+                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
+                    <strong>회원가입</strong>
+                </a>
+                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+            </div>
+        </div>
+    </header>
+    <body>
+        <main>
+            <section class="py-3 text-center container d-flex justify-content-center">
+                <div class="modal-content rounded-4">
+                    <form method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+
+                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">아이디</h5>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="user-username" name="user-username" placeholder="닉네임을 입력해주세요." required>
+                            <label for="user-username">아이디를 입력해주세요.</label>
+                        </div>
+
+                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호</h5>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-3" id="user-password1" name="user-password1" placeholder="비밀번호를 입력해주세요." required>
+                            <label for="user-password1">비밀번호를 입력해주세요.</label>
+                        </div>
+
+                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호 확인</h5>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="user-password2" name="user-password2" placeholder="비밀번호를 다시 입력해주세요." required>
+                          <label for="user-password2">비밀번호를 다시 입력해주세요.</label>
+                        </div>
+
+                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">자기소개</h5>
+                        <div class="form-floating mb-3">
+                          <textarea class="form-control rounded-3" id="id_profile-intro" rows="5" name="profile-intro"></textarea>
+
+                          <label for="user-password2">간단한 자기소개를 입력해주세요.</label>
+                        </div>
+
+                        <input type="hidden" name="profile_img" value="{{ profile_img }}">
+                        <input type="hidden" name="nickname" value="{{ nickname }}">
+
+                        <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+                            다음
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
+
+<!--
 <h1>회원가입</h1>
 
 {% if messages %}
@@ -47,5 +127,4 @@
     <button type="button" class="btn btn-outline-dark">취소</button>
   </a>
 </form>
-
-
+-->

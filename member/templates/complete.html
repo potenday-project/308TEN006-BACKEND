@@ -37,20 +37,24 @@
             <section class="py-3 text-center container d-flex justify-content-center">
                 <div class="modal-content rounded-4">
                     <img src="{% static 'img/Atee_BG_page2_1.png' %}" alt="Profile Image 1" class="w-100">
-                    <form method="post">
-                        {% csrf_token %}
-                        <h5 class="fs-6 fw-bold mb-3">뭐라고 부르면 좋을까요?</h5>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요." required>
-                            <label for="nickname">닉네임을 입력해주세요.</label>
-                        </div>
-                        <input type="hidden" name="profile_img" value="{{ profile_img }}">
-                        <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-                            다음
-                        </button>
-                    </form>
+                    <h5 class="fs-6 fw-bold mb-3">
+                        환영해요!
+                    </h5>
+                    <h5 class="fs-6 fw-bold mb-3">
+                        이제 본격적으로 애티를 써볼까요?
+                    </h5>
+                    <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit" onclick="redirectToIndex()">
+                        완료
+                    </button>
                 </div>
             </section>
         </main>
+
+        <script>
+            function redirectToIndex() {
+                window.location.href = "{% url 'index' %}";
+            }
+        </script>
+        
     </body>
 </html>
