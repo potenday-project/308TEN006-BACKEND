@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 3 - Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="profile_img_full" value="https://atee-s3.s3.ap-northeast-2.amazonaws.com/static/img/{{ profile_img }}">
+        <input type="hidden" name="nickname" value="{{ nickname }}">
+        <input type="email" name="email" placeholder="Enter your email" required><br>
+        <input type="password" name="password" placeholder="Enter your password" required><br>
+        <input type="password" name="password_repeat" placeholder="Repeat your password" required><br>
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+</html>

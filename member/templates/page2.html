@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 2 - Choose Nickname</title>
+</head>
+<body>
+    <h1>Choose Your Nickname</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="nickname" placeholder="Enter your nickname" required>
+        <input type="hidden" name="profile_img" value="{{ profile_img }}">
+        <br>
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>

@@ -11,17 +11,60 @@ from django.urls import reverse_lazy
 from django.views import generic, View
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreationMultiForm, ProfileForm, ProfileUpdateForm
+from django.core.files import File
+from urllib.request import urlopen
+from django.core.files.temp import NamedTemporaryFile
+from django.contrib import messages
 from .models import Profile
+from urllib.parse import urljoin
 
-def signup(request):
+## 회원가입 로직
+def signup_1(request):
+    if request.method == 'POST':
+        selected_img = request.POST.get('selected_img')
+        return redirect('page2', profile_img=selected_img)
+    return render(request, 'signup_1.html')
+
+def page2(request, profile_img):
+    if request.method == 'POST':
+        nickname = request.POST.get('nickname')
+        return redirect('signup', profile_img=profile_img, nickname=nickname)
+    return render(request, 'page2.html', {'profile_img': profile_img})
+
+# def page3(request, profile_img, nickname):
+#     profile_img = request.POST.get('profile_img')
+#     img_url = urljoin("https://atee-s3.s3.ap-northeast-2.amazonaws.com/static/img/", profile_img)
+
+#     if request.method == 'POST':
+#         profile_img = img_url
+#         nickname = request.POST.get('nickname')
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         return render(request, 'success.html', {'profile_img': profile_img, 'nickname': nickname})
+#     return render(request, 'page3.html')
+
+def signup(request, profile_img, nickname):
+
     if request.method == 'POST':
         if request.POST['user-password1'] == request.POST['user-password2']:
             form = UserCreationMultiForm(request.POST, request.FILES)
             if form.is_valid(): 
                 user = form['user'].save()
+                img_url = urljoin("https://atee-s3.s3.ap-northeast-2.amazonaws.com/static/img/", profile_img)
+
+                # 업로드된 이미지의 URL로부터 이미지 파일 가져오기
+                response = urlopen(img_url)
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(response.read())
+                img_temp.flush()
+                
+
                 profile = form['profile'].save(commit=False)
                 profile.user = user
-                profile.nick = user
+
+                # 이미지 파일 저장
+                profile.profile_image.save(f"profile_{user.id}.png", File(img_temp))
+                profile.nick = nickname
                 profile.save()
                 auth.login(request, user)
                 return redirect('index')
@@ -33,7 +76,7 @@ def signup(request):
         else:
             messages.info(request, '비밀번호가 다릅니다.')
             return render(request, 'signup.html')
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {'profile_img':profile_img, 'nickname': nickname})
 
 
 
@@ -133,3 +176,4 @@ class ProfileUpdateView(View):
             return render(request, 'mypage.html', context=context)
             
         return redirect('mypage', pk=request.user.pk) 
+    
