@@ -39,7 +39,8 @@ def post(request):
 
 def detail(request, memo_id):
     memo = get_object_or_404(Memos, pk=memo_id)
-    return render(request, 'detail.html', {'memo': memo})
+    conn_profile = Profile.objects.get(user=memo.name)
+    return render(request, 'detail.html', {'memo': memo, 'conn_profile': conn_profile})
 
 @login_required
 @require_POST
@@ -61,7 +62,7 @@ def like(request):
 
 @login_required
 def comment_write(request, memokey):
-    if request.method =='POST':
+    if request.method == 'POST':
         post = get_object_or_404(Memos, pk=memokey)
 
         context = {'post': post,}
@@ -74,7 +75,12 @@ def comment_write(request, memokey):
             messages.info(request, '댓글을 입력해 주세요')
             return redirect('detail', memokey)
 
-        Comment.objects.create(post=post, comment_writer=conn_profile, comment_contents=content)
+        comment = Comment.objects.create(post=post, comment_writer=conn_profile, comment_contents=content)
+
+        # 새로운 댓글 인스턴스가 생성된 후 해당 댓글 작성자의 프로필 이미지를 comment_writer_img에 저장
+        comment.comment_writer_img = conn_profile.profile_image
+        comment.save()
+
         return redirect('detail', memokey)
 
 @login_required

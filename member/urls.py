@@ -10,5 +10,5 @@ urlpatterns = [
     path('profile_update', views.ProfileUpdateView.as_view(), name='profile_update'),
     ## 회원가입 로직
     path('signup_1/', views.signup_1, name='signup_1'),
-    path('page2/<str:profile_img>/', views.page2, name='page2'),
+    path('signup_2/<str:profile_img>/', views.signup_2, name='signup_2'),
 ]

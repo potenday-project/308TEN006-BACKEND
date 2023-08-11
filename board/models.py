@@ -46,6 +46,7 @@ class Comment(models.Model):
     comment_date = models.DateTimeField(auto_now_add=True)
     comment_contents = models.CharField(max_length=200)
     comment_writer = models.ForeignKey(Profile, on_delete=models.CASCADE, null = True)
+    comment_writer_img = models.ImageField(blank=True, upload_to='comment_images')  # 새로 추가한 필드
 
     class Meta:
         ordering = ['-id']

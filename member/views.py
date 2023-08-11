@@ -22,26 +22,14 @@ from urllib.parse import urljoin
 def signup_1(request):
     if request.method == 'POST':
         selected_img = request.POST.get('selected_img')
-        return redirect('page2', profile_img=selected_img)
+        return redirect('signup_2', profile_img=selected_img)
     return render(request, 'signup_1.html')
 
-def page2(request, profile_img):
+def signup_2(request, profile_img):
     if request.method == 'POST':
         nickname = request.POST.get('nickname')
         return redirect('signup', profile_img=profile_img, nickname=nickname)
-    return render(request, 'page2.html', {'profile_img': profile_img})
-
-# def page3(request, profile_img, nickname):
-#     profile_img = request.POST.get('profile_img')
-#     img_url = urljoin("https://atee-s3.s3.ap-northeast-2.amazonaws.com/static/img/", profile_img)
-
-#     if request.method == 'POST':
-#         profile_img = img_url
-#         nickname = request.POST.get('nickname')
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         return render(request, 'success.html', {'profile_img': profile_img, 'nickname': nickname})
-#     return render(request, 'page3.html')
+    return render(request, 'signup_2.html', {'profile_img': profile_img})
 
 def signup(request, profile_img, nickname):
 
