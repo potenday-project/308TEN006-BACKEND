@@ -58,7 +58,6 @@ def signup(request, profile_img, nickname):
                 img_temp.write(response.read())
                 img_temp.flush()
                 
-
                 profile = form['profile'].save(commit=False)
                 profile.user = user
 
