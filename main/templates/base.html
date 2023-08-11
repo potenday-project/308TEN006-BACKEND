@@ -22,6 +22,28 @@
   <body>
 
 <header data-bs-theme="light">
+  <div class="collapse text-bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 offset-md-1 py-4">
+          {% if user.is_authenticated %}
+            <h4><span id="user_name">{{ user.username }}</span>님 반갑습니다!</h4>
+            <ul class="list-unstyled">
+              <li><a href="{% url 'mypage' %}" class="text-white">mypage</a></li>
+              <li><a href="{% url 'post' %}" class="text-white">post</a></li>
+              <li><a href="{% url 'logout' %}" class="text-white">logout</a></li>
+            </ul>
+          {% else %}
+            <ul class="list-unstyled">
+              <li><a href="{% url 'login' %}" class="text-white">login</a></li>
+              <li><a href="{% url 'signup_1' %}" class="text-white">signup</a></li>
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="navbar navbar-light">
     <div class="container">
       <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
