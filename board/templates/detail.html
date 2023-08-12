@@ -1,211 +1,245 @@
-{% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% load memo_extras %}
-{% block content %}
+
+<!doctype html>
+<html lang="ko" data-bs-theme="auto">
+
+<head>
+    <script src="{% static 'assets/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.115.4">
+    <title>Atee</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+
+    <style>
+
+      .custom-tag {
+        display: inline-block;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 8px;
+        border: 1px solid #A0A0A0;
+        padding: 0 10px;
+        color: #A0A0A0;
+      }
+
+      .custom-tag2 {
+        font-size: 12px;
+        color: #A0A0A0;
+      }
+
+      .custom-tag3 {
+        font-size: 14px;
+        color: #A0A0A0;
+      }
+
+      .custom-input {
+        font-size: 14px;
+        color: #BDBDBD;
+        border: none;
+        background-color: #F5F5F5;
+      }
+
+      .no-border {
+        border: none;
+      }
+
+    </style>
+
+</head>
+
+<body>
+
+  <header data-bs-theme="light">
+      <div class="navbar navbar-light mt-2">
+          <div class="container d-flex justify-content-between align-items-center">
+              <a class="btn" href="{% url 'index' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                  </svg>
+              </a>
+              <a class="text-center text-decoration-none" style="visibility: hidden;">
+                  카테고리
+              </a>
+              <button style="visibility: hidden;">완료</button>
+          </div>
+      </div>
+  </header>
 
 <main>
 
-  <div class="text-center container d-flex justify-content-center">
-    <img src="{{ memo.images.url }}" class="d-block w-100 h-100" alt="banner_1">
+  <div class="d-flex justify-content-center">
+    <img src="{{ memo.images.url }}" class="d-block w-100 h-100" alt="banner_1" width="360px" height="360px">
   </div>
 
-  <div class="album py-3">
-    <div class="container">
 
+
+  <div class="album">
+    <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
 
-        <div class="d-flex justify-content-between align-items-center">
-
-          <div class="btn-group">
-            <span class="badge text-light-emphasis rounded-pill d-flex align-items-center"
-              style="margin-right: -0.5rem!important;">
-              <div class="dropdown text-end">
-                {% if user.is_authenticated %}
-                <a href="{% url 'userpage' memo.name  %}" class="d-block link-body-emphasis text-decoration-none">
-                  <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
-                  <span class="writer_name">{{conn_profile.nick}}</span>
-                </a>
-                {% else %}
-                <div class="d-block link-body-emphasis text-decoration-none">
-                  <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
-                  <span class="writer_name">{{conn_profile.nick}}</span>
-                </div>
-                {% endif %}
-              </div>
-            </span>
-          </div>
-
-          <small class="text-body-secondary">
-            {{memo.create_date}}
-          </small>
-
-        </div>
-
         <div class="col d-flex justify-content-center">
-          <div style="width: 320px;">
-            <div>
-              <p class="fw-bolder" style="margin-bottom: 0.25rem; font-size: 16px;">
-                {{memo.title}}
-              </p>
-              <p class="fw-normal" style="font-size: 14px;">
-                {{memo.text}}
-              </p>
-
-              <!-- 해시태그 영역 -->
-              {% for tag in tag_all %}
-                <span class="badge bg-light-subtle border border-light-subtle text-light-emphasis rounded-pill" style="margin-bottom: 0.5rem;">
-                  {{ tag }}
+          <div class="card mt-3" style="width: 320px; border: none;">
+            <div class="d-flex mb-2">
+              <div>
+                <img src="{{conn_profile.profile_image.url}}" width="36px" height="36px" class="rounded-circle">
+                <span style="font-size: 14px;">
+                  {{conn_profile.nick}}
                 </span>
-              {% endfor %}
-              
-              <p style="margin-bottom: 0.5rem;">
-                <span class="badge text-light-emphasis rounded-pill d-flex align-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-cursor" viewBox="0 0 16 16">
-                    <path
-                      d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z" />
-                  </svg>
-                  <span class="ms-1">{{memo.district}}</span>
-                </span>
-              </p>
-
-
-
-
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-
-                  <span class="badge text-light-emphasis rounded-pill d-flex align-items-center"
-                    style="margin-right: -0.5rem!important;">
-                    <span class="like_button">
-                      {% if memo.likes.all %}
-                      <a class="like" name="{{ memo.id }}"
-                        style="text-decoration: none !important; color: inherit !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-heart-fill" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd"
-                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                        </svg>
-                      </a>
-                      {% else %}
-                      <a class="like" name="{{ memo.id }}"
-                        style="text-decoration: none !important; color: inherit !important;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-heart" viewBox="0 0 16 16">
-                          <path
-                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                        </svg>
-                      </a>
-                      {% endif %}
-                      <span class="like_count" id="count{{ memo.id }}">
-                        {{ memo.total_likes }}
-                      </span>
-                    </span>
-                  </span>
-
-
-                  <span class="badge text-light-emphasis rounded-pill d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-chat-square-dots" viewBox="0 0 16 16">
-                      <path
-                        d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                      <path
-                        d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                    </svg>
-                    <span class="ms-1">
-                      {{memo.comments.count}}
-                    </span>
-                  </span>
-
-                </div>
-
-                <small class="text-body-secondary">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share"
-                    viewBox="0 0 16 16">
-                    <path
-                      d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
-                  </svg>
-                </small>
-
               </div>
+              <div class="ms-auto" style="display: flex; align-items: center;">
+                <span class="custom-tag2" style="vertical-align: middle;">
+                  {{ memo.create_date|naturaltime }}
+                </span>
+              </div>
+            </div>
+            <div>
+              <span class="fw-bolder" style="font-size: 16px;">
+                {{memo.title}}
+              </span>
+            </div>
+            <div class="mb-4">
+              <span class="fw-normal" style="font-size: 14px;">
+                {{memo.text}}
+              </span>
+            </div>
+            <div class="mt-2 mb-2">
+              {% for tag in tag_all %}
+              <span class="custom-tag">
+                {{ tag }}
+              </span>
+              {% endfor %}
 
             </div>
-          </div>
-        </div>
 
-        <div class="col d-flex justify-content-center">
-          {% if user.is_authenticated %}
-            <img src="{{conn_profile.profile_image.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
-            <form class="form-inline" action="{% url 'comment_write' memokey=memo.pk %}" method="POST">
-              {% csrf_token %}
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="댓글을 입력해주세요." aria-label="Recipient's username"
-                  name="content" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-              </div>
-            </form>
-          {% else %}
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            <form class="form-inline" action="{% url 'comment_write' memokey=memo.pk %}" method="POST">
-              {% csrf_token %}
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="로그인을 해주세요." aria-label="Recipient's username"
-                  name="content" aria-describedby="button-addon2" disabled>
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-              </div>
-            </form>
-          {% endif %}
-        </div>
+            <div class="mb-2">
+              <img src="{% static 'img/card_location.png' %}" width="12px" height="12px">
+              <span style="font-size: 12px; color: #A0A0A0;">{{memo.district}}</span>
+              </span>
+            </div>
 
-        
-        <div class="col d-flex justify-content-center">
-          {% if memo.comments.all %}
-          {% for comment in memo.comments.all %}
-          <img src="{{comment.comment_writer_img.url}}" alt="mdo" width="32" height="32" class="rounded-circle">
-          <div style="width: 320px;">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    {% if user.is_authenticated %}
-                      <a class="fw-bolder" href="{% url 'userpage' comment.comment_writer %}" style="margin-bottom: 0.25rem; font-size: 16px;">
-                        <span class="comment_writer_name">
-                          {{ comment.comment_writer }}
-                        </span>
-                      </a>
+
+            <div class="d-flex mb-3">
+              <div>
+
+                <span class="like_button">
+                  <a class="like" name="{{ memo.id }}" style="text-decoration: none; color: black;">
+                    {% if memo.likes.all %}
+                      <img src="{% static 'img/card_heart_tobe.png' %}" width="24px" height="24px">
                     {% else %}
-                      <span class="comment_writer_name">
-                        {{ comment.comment_writer }}
-                      </span>
+                      <img src="{% static 'img/card_heart_asis.png' %}" width="24px" height="24px">
                     {% endif %}
-                    {% if user.is_authenticated and user.username == comment.comment_writer %}
-                      <span class="control">
-                        <a href="{% url 'comment_delete' memo.pk comment.pk %}" onclick="return confirm('정말 삭제하시겠습니까?')">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                          </svg>
-                        </a>
-                      </span>
-                    {% endif %}
-                    <small class="text-body-secondary">{{ comment.comment_date }}</small>
-                  </div>
+                  </a>
+                  <span class="like_count custom-tag3" id="count{{ memo.id }}">
+                    {{ memo.total_likes }}
+                  </span>
+                </span>
+
+                <img src="{% static 'img/card_message.png' %}" width="24px" height="24px" class="ms-2">
+                <span class="custom-tag3">
+                  {{memo.comments.count}}
+                </span>
+              </div>
+              <div class="ms-auto">
+                <img src="{% static 'img/card_shard.png' %}" width="24px" height="24px" class="rounded-circle" onclick="shareCurrentPage()">
+              </div>
+            </div>
+
+            
+            <div class="d-flex mb-3">
+              <div>
+                <img src="{{conn_profile.profile_image.url}}" width="36px" height="36px" class="rounded-circle">
+              </div>
+              {% if user.is_authenticated %}
+              <form method="POST" action="{% url 'comment_write' memokey=memo.pk %}">
+                {% csrf_token %}
+                <div class="input-group ms-1">
+                  <input type="text" class="form-control custom-input no-border" placeholder="댓글을 입력해주세요." name="content">
+                  <button class="btn btn-outline-secondary custom-input no-border" type="button" id="button-addon2">
+                    <b>등록</b>
+                  </button>
                 </div>
-                <p class="fw-normal" style="font-size: 14px;">
-                  {{ comment.comment_contents }}
-                </p>
+              </form>
+              {% else %}
+              <img src="https://github.com/mdo.png" width="36px" height="36px" class="rounded-circle">
+                <div class="input-group ms-1">
+                  <input type="text" class="form-control custom-input no-border" placeholder="로그인을 해주세요." name="content" disabled>
+                  <button class="btn btn-outline-secondary custom-input no-border" type="button" id="button-addon2" disabled>
+                    <b>등록</b>
+                  </button>
+              </div>
+              {% endif %}
+            </div>
+
+
+            {% if memo.comments.all %}
+              {% for comment in memo.comments.all %}
+              <div class="d-flex align-items-start gap-2 lh-sm text-start mb-3">
+                <img src="{{comment.comment_writer_img.url}}" width="36px" height="36px" class="rounded-circle">
+                <div>
+                  <span class="d-block" style="font-size: 14px;">
+                    <span class="comment_writer_name">
+                      {{ comment.comment_writer }}
+                      <span class="custom-tag2">
+                        {{ comment.comment_date|naturaltime }}
+                      </span>
+                    </span>
+                  </span>
+                  <span style="font-size: 14px;">
+                    {{ comment.comment_contents }}
+                  </span>
+                </div>
+              </div>
               {% endfor %}
-          {% else %}
-            <p class="card-text">댓글이 없습니다.</p>
+            {% else %}
+              댓글이 없습니다.
+            {% endif %}
+            
+
           </div>
-          {% endif %}
         </div>
       </div>
     </div>
   </div>
 
-</main>
 
+</main>
+</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">
+  function shareCurrentPage() {
+    const currentPageURL = window.location.href;
+
+    // Web Share API 사용 (브라우저 지원 여부 확인 필요)
+    if (navigator.share) {
+      navigator.share({
+        url: currentPageURL
+      }).then(() => {
+        alert('공유에 성공하였습니다.');
+      }).catch((error) => {
+        alert('공유에 실패하였습니다.');
+      });
+    } else {
+      // 클립보드에 URL 복사
+      const textArea = document.createElement('textarea');
+      textArea.value = currentPageURL;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+
+      alert('브라우저가 공유 기능을 지원하지 않아 클립보드에 Url이 복사되었습니다.');
+    }
+  }
+
   $("#user_name").text();
   $(".writer_name").text();
 
@@ -249,6 +283,3 @@
     }
   }
 </script>
-
-
-{% endblock %}
