@@ -20,14 +20,12 @@
 </style>
 
 <main>
-
-  <div class="position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-    <a href="{% url 'post' %}" class="btn btn-bd-primary py-2 d-flex align-items-center">
-      <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
-        <use href="#circle-half"></use>
-      </svg>
+  <div class="position-fixed bottom-0 end-0 me-4 bd-mode-toggle" style="margin-bottom: 12rem!important;">
+    <a href="{% url 'post' %}" class="py-2 d-flex align-items-center">
+      <img src="{% static 'img/add_post.png' %}" width="56px" height="56px" alt="Add Post">
     </a>
   </div>
+  
 
   <section class="py-1 text-center container d-flex justify-content-center">
 
