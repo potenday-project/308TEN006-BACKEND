@@ -14,24 +14,61 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+
+    <style>
+        /* ... (기존 스타일 정의) ... */
+        h5.fs-6 {
+          font-size: 14px !important; /* 강제로 폰트 크기 14px로 설정 */
+        }
+
+        .custom-input {
+            height: 48px; /* 입력 필드의 높이 */
+            font-size: 16px; /* 레디스 폰트 크기 */
+            text-align: left; /* 가운데 정렬 */
+            border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+        }
+
+        .custom-textarea {
+            height: 120px; /* 입력 필드의 높이 */
+            font-size: 16px; /* 레디스 폰트 크기 */
+            text-align: left; /* 가운데 정렬 */
+            border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+        }
+
+        /* 스타일 시트 내에 추가 */
+        .custom-button {
+            font-size: 20px; /* 버튼 안의 글자 크기 */
+            height: 48px; /* 버튼의 높이 */
+            border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+        }
+
+    </style>
+
+
 </head>
 
 <body>
+
+
+
     <header data-bs-theme="light">
-        <div class="navbar navbar-light">
-            <div class="container">
-                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                    </svg>
-                </a>
-                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-                    <strong>회원가입</strong>
-                </a>
-                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+      <div class="navbar navbar-light mt-2">
+          <div class="container d-flex justify-content-between align-items-center">
+            <span class="btn" id="goBackButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg>
+            </span>
+            <a class="text-center text-decoration-none" style="font-size: 18px; font-weight: bold; color: black;">
+                  회원가입
+              </a>
+              <span class="btn" style="visibility: hidden;">다음</span>
             </div>
-        </div>
-    </header>
+      </div>
+  </header>
+  
+
+
     <body>
         <main>
             <section class="py-3 text-center container d-flex justify-content-center">
@@ -39,40 +76,58 @@
                     <form method="POST" enctype="multipart/form-data">
                       {% csrf_token %}
 
-                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">아이디</h5>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="user-username" name="user-username" placeholder="닉네임을 입력해주세요." required>
-                            <label for="user-username">아이디를 입력해주세요.</label>
+                        <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start mt-2">아이디</h5>
+                        <div class="mb-4">
+                            <input type="text" class="form-control custom-input" id="user-username" name="user-username" placeholder="아이디를 입력해주세요.">
                         </div>
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호</h5>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="user-password1" name="user-password1" placeholder="비밀번호를 입력해주세요." required>
-                            <label for="user-password1">비밀번호를 입력해주세요.</label>
+                        <div class="mb-4">
+                            <input type="text" class="form-control custom-input" id="user-password1" name="user-password1" placeholder="비밀번호를 입력해주세요.">
                         </div>
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호 확인</h5>
-                        <div class="form-floating mb-3">
-                          <input type="text" class="form-control rounded-3" id="user-password2" name="user-password2" placeholder="비밀번호를 다시 입력해주세요." required>
-                          <label for="user-password2">비밀번호를 다시 입력해주세요.</label>
+                        <div class="mb-4">
+                          <input type="text" class="form-control custom-input" id="user-password2" name="user-password2" placeholder="비밀번호를 다시 입력해주세요.">
                         </div>
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">자기소개</h5>
-                        <div class="form-floating mb-3">
-                          <textarea class="form-control rounded-3" id="id_profile-intro" rows="5" name="profile-intro"></textarea>
-                          <label for="user-password2">간단한 자기소개를 입력해주세요.</label>
+                        <div class="mb-4">
+                          <textarea class="form-control custom-textarea" id="id_profile-intro" rows="5" name="profile-intro" placeholder="간단한 자기소개를 입력해주세요."></textarea>
                         </div>
 
                         <input type="hidden" name="profile_img" value="{{ profile_img }}">
                         <input type="hidden" name="nickname" value="{{ nickname }}">
 
-                        <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-                            다음
-                        </button>
+                        <button type="submit" class="btn btn-dark w-100 custom-button" id="submitButton" disabled>다음</button>
+                        
                     </form>
                 </div>
             </section>
         </main>
+
+
+        <script>
+            document.getElementById('goBackButton').addEventListener('click', function() {
+                history.back();
+            });
+
+            document.addEventListener('input', function () {
+              var username = document.getElementById('user-username').value.trim();
+              var password1 = document.getElementById('user-password1').value.trim();
+              var password2 = document.getElementById('user-password2').value.trim();
+              var submitButton = document.getElementById('submitButton');
+
+              if (username !== '' && password1 !== '' && password2 !== '') {
+                  submitButton.removeAttribute('disabled');
+              } else {
+                  submitButton.setAttribute('disabled', 'true');
+              }
+          });
+
+        </script>
+  
+
     </body>
 </html>
 

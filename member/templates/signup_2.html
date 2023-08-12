@@ -14,21 +14,62 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+
+    <style>
+        /* ... (기존 스타일 정의) ... */
+        {% if profile_img == 'Atee_BG_1.png' or profile_img == 'Atee_BG_5.png' %}
+        body {
+            background-color: #D2F357; /* 프로필 이미지가 'Atee_BG_3.png' 또는 'Atee_BG_6.png' 일 경우 배경색 변경 */
+        }
+        {% elif profile_img == 'Atee_BG_3.png' or profile_img == 'Atee_BG_4.png' or profile_img == 'Atee_BG_7.png' %}
+        body {
+            background-color: #69D9F9; /* 프로필 이미지가 'img1_radio' 또는 'img4_radio' 일 경우 배경색 변경 */
+        }
+        {% elif profile_img == 'Atee_BG_2.png' or profile_img == 'Atee_BG_6.png' or profile_img == 'Atee_BG_8.png' %}
+        body {
+            background-color: #FF6827; /* 프로필 이미지가 'img2_radio' 또는 'img5_radio' 일 경우 배경색 변경 */
+        }
+        {% endif %}
+
+        /* 추가 배경 이미지를 가리기 위해 header에 배경 투명도 설정 */
+        header {
+            background-color: rgba(255, 255, 255, 0.8); /* 배경 투명도 조절 가능 */
+        }
+
+        .custom-input {
+            height: 48px; /* 입력 필드의 높이 */
+            font-size: 16px; /* 레디스 폰트 크기 */
+            text-align: center; /* 가운데 정렬 */
+            border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+        }
+
+        /* 스타일 시트 내에 추가 */
+        .custom-button {
+            font-size: 20px; /* 버튼 안의 글자 크기 */
+            height: 48px; /* 버튼의 높이 */
+            background-color: #BDBDBD; /* 버튼의 배경 색상 */
+            border-color: #BDBDBD; /* 버튼의 테두리 색상 */
+            border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+        }
+
+        /* input과 button 등 다른 요소에 필요한 스타일링도 추가 가능 */
+    </style>
+
 </head>
 
 <body>
-    <header data-bs-theme="light">
-        <div class="navbar navbar-light">
-            <div class="container">
-                <a href="{% url 'signup_1' %}" class="navbar-brand d-flex align-items-center hidden">
+    <header data-bs-theme="light" style="background-color: transparent;">
+        <div class="navbar navbar-light mt-2">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a class="btn" href="{% url 'signup_1' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                     </svg>
                 </a>
-                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-                    <strong>프로필 만들기</strong>
+                <a href="{% url 'index' %}" class="text-center text-decoration-none" style="font-size: 18px; font-weight: bold; color: black;">
+                    프로필 만들기
                 </a>
-                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+                <span class="btn" style="visibility: hidden;">다음</span>
             </div>
         </div>
     </header>
@@ -36,21 +77,40 @@
         <main>
             <section class="py-3 text-center container d-flex justify-content-center">
                 <div class="modal-content rounded-4">
-                    <img src="{% static 'img/Atee_BG_page2_1.png' %}" alt="Profile Image 1" class="w-100">
-                    <form method="post">
+
+                    <img src="https://atee-s3.s3.ap-northeast-2.amazonaws.com/static/img/{{ profile_img|slice:":-4" }}_page.png" alt="Profile Image 1" class="w-100">
+
+                    <form method="POST">
                         {% csrf_token %}
-                        <h5 class="fs-6 fw-bold mb-3">뭐라고 부르면 좋을까요?</h5>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요." required>
-                            <label for="nickname">닉네임을 입력해주세요.</label>
-                        </div>
                         <input type="hidden" name="profile_img" value="{{ profile_img }}">
-                        <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
-                            다음
-                        </button>
+
+                        <span style="font-size: 18px; font-weight: bold; color: black;">
+                            뭐라고 부르면 좋을까요?
+                        </span>
+                        <input type="text" class="form-control custom-input" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요." oninput="checkInput()" style="margin-bottom: 10px; margin-top: 10px;">
+
+                        <button type="submit" class="btn btn-dark w-100 custom-button" id="submitButton" disabled>다음</button>
+
                     </form>
                 </div>
             </section>
         </main>
+
+        <script>
+            function checkInput() {
+                var inputElement = document.getElementById('nickname');
+                var submitButton = document.getElementById('submitButton');
+        
+                if (inputElement.value.trim() !== '') { // 입력값이 있는 경우
+                    submitButton.removeAttribute('disabled'); // 버튼의 disabled 속성 제거
+                    submitButton.style.backgroundColor = '#202020'; // 버튼의 배경색 변경
+                } else { // 입력값이 없는 경우
+                    submitButton.setAttribute('disabled', 'true'); // 버튼의 disabled 속성 추가
+                    submitButton.style.backgroundColor = '#BDBDBD'; // 버튼의 배경색 변경
+                }
+            }
+        </script>
+        
+
     </body>
 </html>

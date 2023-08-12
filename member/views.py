@@ -51,19 +51,29 @@ def signup(request, profile_img, nickname):
                 profile.nick = nickname
                 profile.save()
                 auth.login(request, user)
-                return redirect('complete')
+                return redirect('complete', profile_img=profile_img)
             else:
-                user = request.POST['user-username']
-                user = User.objects.get(username=user)
-                messages.info(request, '아이디가 중복됩니다.')
-                return render(request, 'signup.html')
+
+                user_username = request.POST.get('user-username')
+                if user_username:
+                    try:
+                        user = User.objects.get(username=user_username)
+                    except User.DoesNotExist:
+                        user = None
+
+                    if user:
+                        messages.info(request, '아이디가 중복됩니다.')
+                        return render(request, 'signup.html')
         else:
             messages.info(request, '비밀번호가 다릅니다.')
             return render(request, 'signup.html')
     return render(request, 'signup.html', {'profile_img':profile_img, 'nickname': nickname})
 
-def complete(request):
-    return render(request, 'complete.html')
+def complete(request, profile_img):
+    if request.method == 'POST':
+        nickname = request.POST.get('nickname')
+        return redirect('signup', profile_img=profile_img, nickname=nickname)
+    return render(request, 'complete.html', {'profile_img': profile_img})
 
 class Loginviews(LoginView):
     template_name = 'login.html'

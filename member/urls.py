@@ -11,5 +11,5 @@ urlpatterns = [
     ## 회원가입 로직
     path('signup_1/', views.signup_1, name='signup_1'),
     path('signup_2/<str:profile_img>/', views.signup_2, name='signup_2'),
-    path('complete/', views.complete, name='complete'),
+    path('complete/<str:profile_img>/', views.complete, name='complete'),
 ]
