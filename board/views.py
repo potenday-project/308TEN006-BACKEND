@@ -15,10 +15,18 @@ from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy
 from django.db.models import Q
 
-def splash(request, tag=None):
+def splash(request):
     return render(request, 'splash.html')
 
-def index(request, tag=None):
+def category(request, category_name=None):
+    if category_name == "전체":
+        memo = Memos.objects.all()
+    else:
+        memo = Memos.objects.filter(category=category_name)
+
+    return render(request, 'category.html', {'memo': memo})
+
+def index(request):
     memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})
 
