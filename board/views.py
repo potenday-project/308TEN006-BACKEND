@@ -38,6 +38,7 @@ def index(request, tag=None):
     return render(request, 'index.html', {'memo': memo})
 
 def post(request):
+    print(request.POST)
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         
@@ -50,6 +51,7 @@ def post(request):
             post.save()
             return redirect('index')
         else:
+            print(form.errors)  # 폼의 오류 메시지 출력
             return HttpResponse("폼이 유효하지 않습니다")
     else:
         form = PostForm() 
