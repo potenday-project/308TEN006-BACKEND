@@ -2,6 +2,22 @@
 {% load static %}
 {% load memo_extras %}
 {% block content %}
+<style>
+  .custom-tag {
+    display: inline-block;
+    font-size: 12px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 8px;
+    border: 1px solid #A0A0A0;
+    padding: 0 10px;
+    color: #A0A0A0;
+  }
+  .custom-tag2 {
+    font-size: 12px;
+    color: #A0A0A0;
+  }
+</style>
 
 <main>
 
@@ -134,12 +150,9 @@
   </section>
 
   <div class="album py-3">
-
     <div class="container">
-
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
         
-
         <div class="col d-flex justify-content-center">
           <div style="width: 320px; border-radius: 15px;">
             <span class="fw-bolder text-decoration-none" style="color: inherit; font-size: 16;">지금 뜨는 후기 🔥</span>
@@ -149,70 +162,64 @@
         {% for memo in memo %}
         <a href="{% url 'detail' memo.id %}" class="text-decoration-none">
           <div class="col d-flex justify-content-center">
-            <div class="card shadow-sm" style="width: 320px; border-radius: 15px;">
+            <div class="card" style="width: 320px; border-radius: 15px;">
               <img src="{{memo.images.url}}" class="custom-image" alt="banner_1" style="border-top-left-radius: 15px; border-top-right-radius: 16px; width: 100%;">
-              
+
               <div class="card-body">
 
-                <p class="fw-bolder" style="margin-bottom: 0.25rem; font-size: 16px;">
-                  {{memo.title}}
-                </p>
 
-                <p class="fw-normal" style="margin-bottom: 0.25rem; font-size: 14px;">
-                  {{memo.text}}
-                </p>
-
-                <!-- 해시태그 영역 -->
-                {% for tag in memo.tag_set.all %}
-                <span class="badge bg-light-subtle border border-light-subtle text-light-emphasis rounded-pill" style="margin-bottom: 0.25rem;">
-                    {{ tag.tag_name }}
-                </span>
-                {% endfor %}
-
-                <p style="margin-bottom: 0.25rem;">
-                  <span class="badge text-light-emphasis rounded-pill d-flex align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cursor" viewBox="0 0 16 16">
-                        <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52 2.25 8.184z"/>
-                    </svg>
-                    <span class="ms-1">{{memo.district}}</span>
+                <div>
+                  <span class="fw-bolder" style="font-size: 16px;">
+                    {{memo.title}}
                   </span>
-                </p>
-                
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <div class="btn-group">
-                    
-                    <span class="badge text-light-emphasis rounded-pill d-flex align-items-center" style="margin-right: -0.5rem!important;">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                      </svg>
-                      <span class="ms-1">
-                        <spand="count{{ memo.id }}">{{ memo.total_likes }}</span>
-                      </span>
-                    </span>
-
-                    <span class="badge text-light-emphasis rounded-pill d-flex align-items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-dots" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                      </svg>
-                      <span class="ms-1">
-                        {{memo.comments.count}}
-                      </span>
-                    </span>
-                    
-                  </div>
-
-                  <small class="text-body-secondary">
-                    {{memo.create_date}}
-                  </small>
-
                 </div>
-  
+                <div>
+                  <span class="fw-normal" style="font-size: 14px;">
+                    {{memo.text}}
+                  </span>
+                </div>
+
+                <div class="mt-2">
+                  {% for tag in memo.tag_set.all %}
+                    <span class="custom-tag">
+                      {{ tag.tag_name }}
+                    </span>
+                  {% endfor %}
+                </div>
+
+                <div>
+                    <img src="{% static 'img/card_location.png' %}" width="12px" height="12px">
+                    <span style="font-size: 12px; color: #A0A0A0;">{{memo.district}}</span>
+                  </span>
+                </div>
+
+
+                <div class="d-flex">
+                  <div>
+                    <img src="{% static 'img/card_heart_tobe.png' %}" width="12px" height="12px">
+                    <span class="custom-tag2">
+                      <span="count{{ memo.id }}">{{ memo.total_likes }}</span>
+                    </span>
+                    <img src="{% static 'img/card_message_tobe.png' %}" width="12px" height="12px">
+                    <span class="custom-tag2">
+                      {{memo.comments.count}}
+                    </span>
+                  </div>
+                  <div class="ms-auto">
+                    <span class="custom-tag2">
+                      {{ memo.create_date|date:"Y년 m월 d일 체험" }}
+                    </span>
+                  </div>
+                </div>
+
               </div>
+
+
+
+
+
             </div>
           </div>
-
         </a>
         {% endfor %}
 
