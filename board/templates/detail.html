@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load memo_extras %}
 {% block content %}
 
 <main>
@@ -51,11 +52,12 @@
               </p>
 
               <!-- 해시태그 영역 -->
-              <span class="badge bg-light-subtle border border-light-subtle text-light-emphasis rounded-pill"
-                style="margin-bottom: 0.5rem;">
-                #서핑
-              </span>
-
+              {% for tag in tag_all %}
+                <span class="badge bg-light-subtle border border-light-subtle text-light-emphasis rounded-pill" style="margin-bottom: 0.5rem;">
+                  {{ tag }}
+                </span>
+              {% endfor %}
+              
               <p style="margin-bottom: 0.5rem;">
                 <span class="badge text-light-emphasis rounded-pill d-flex align-items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

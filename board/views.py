@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy
 from django.db.models import Q
+import re
 
 def splash(request):
     return render(request, 'splash.html')
@@ -24,10 +25,16 @@ def category(request, category_name=None):
     else:
         memo = Memos.objects.filter(category=category_name)
 
-    return render(request, 'category.html', {'memo': memo})
+    # 해당 카테고리에 속한 메모들의 태그들 가져오기
+    related_tags = Tag.objects.filter(memos__category=category_name).distinct()
 
-def index(request):
-    memo = Memos.objects.all()
+    return render(request, 'category.html', {'memo': memo, 'related_tags': related_tags})
+
+def index(request, tag=None):
+    if tag:
+        memo = Memos.objects.filter(tag_set__tag_name=tag)
+    else:
+        memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})
 
 def post(request):
@@ -47,11 +54,16 @@ def post(request):
     else:
         form = PostForm() 
         return render(request, 'post.html', {'form': form})
-
+    
 def detail(request, memo_id):
     memo = get_object_or_404(Memos, pk=memo_id)
     conn_profile = Profile.objects.get(user=memo.name)
-    return render(request, 'detail.html', {'memo': memo, 'conn_profile': conn_profile})
+    
+    tag_text = memo.tag_text
+    tags_with_hashes = re.findall(r'#\w+', tag_text)
+    tag_all = [tag for tag in tags_with_hashes]
+    
+    return render(request, 'detail.html', {'memo': memo, 'conn_profile': conn_profile, 'tag_all': tag_all})
 
 @login_required
 @require_POST

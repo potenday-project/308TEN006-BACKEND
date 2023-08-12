@@ -12,7 +12,7 @@ urlpatterns = [
     ### 하나씩 살리기 ~ ###
     # path('<int:memokey>/modify/', views.modify, name='modify_memo'),
     # path('<int:memokey>/delete/', views.delete, name='delete_memo'),
-    # path('explore/tags/<str:tag>/', views.index, name='post_search'),
+    path('explore/tags/<str:tag>/', views.index, name='post_search'),
     # path('search/', views.search, name='search'),
     ###
 ]
