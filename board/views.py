@@ -33,7 +33,7 @@ def post(request):
             post.generate()
             post.tag_save()
             post.save()
-            return redirect('/')
+            return redirect('index')
         else:
             return HttpResponse("폼이 유효하지 않습니다")
     else:
