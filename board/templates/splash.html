@@ -15,16 +15,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+    <style>
+        /* 이미지를 화면에 꽉 차게 표시하기 위한 스타일 */
+        .full-screen-image {
+            max-width: 100%;
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
     <body>
         <main>
-            <section class="py-3 text-center container d-flex justify-content-center">
-                <div class="modal-content rounded-4">
-                    <img src="{% static 'img/Atee-splash.gif' %}" alt="Profile Image 1" class="w-100">
-                </div>
-            </section>
+            <div class="modal-content rounded-4">
+                <img src="{% static 'img/Atee-splash.gif' %}" alt="Profile Image 1" class="w-100 full-width-image">
+            </div>
         </main>
     </body>
 </html>
