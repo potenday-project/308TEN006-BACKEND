@@ -22,37 +22,25 @@
   <body>
 
 <header data-bs-theme="light">
-  <div class="collapse text-bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4 offset-md-1 py-4">
+  <div class="navbar navbar-light mt-2">
+      <div class="container d-flex justify-content-between align-items-center">
+          <a class="btn" href="{% url 'index' %}">
+            <img src="{% static 'img/nav_logo.png' %}">
+          </a>
+          
+          <span class="text-center text-decoration-none" style="visibility: hidden;">
+            마이페이지
+          </span>
           {% if user.is_authenticated %}
-            <h4><span id="user_name">{{ user.username }}</span>님 반갑습니다!</h4>
-            <ul class="list-unstyled">
-              <li><a href="{% url 'mypage' %}" class="text-white">mypage</a></li>
-              <li><a href="{% url 'post' %}" class="text-white">post</a></li>
-              <li><a href="{% url 'logout' %}" class="text-white">logout</a></li>
-            </ul>
+            <a class="btn" href="{% url 'mypage' %}">
+              <img src="{% static 'img/nav_main_profile.png' %}">
+            </a>
           {% else %}
-            <ul class="list-unstyled">
-              <li><a href="{% url 'login' %}" class="text-white">login</a></li>
-              <li><a href="{% url 'signup_1' %}" class="text-white">signup</a></li>
-            </ul>
+            <a class="btn" href="{% url 'signup_1' %}">
+              <img src="{% static 'img/nav_main_profile.png' %}">
+            </a>
           {% endif %}
-        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="navbar navbar-light">
-    <div class="container">
-      <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-        <strong>Atee</strong>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
   </div>
 </header>
 
