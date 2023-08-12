@@ -45,7 +45,11 @@
     <header data-bs-theme="light">
         <div class="navbar navbar-light mt-2">
             <div class="container d-flex justify-content-between align-items-center">
-                <span class="btn" style="visibility: hidden;">다음</span>
+                <a class="btn" href="{% url 'index' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </a>
                 <a href="{% url 'index' %}" class="text-center text-decoration-none" style="font-size: 18px; font-weight: bold; color: black;">
                     프로필 만들기
                 </a>
@@ -59,7 +63,7 @@
     <body>
         <main>
             <section class="py-3 text-center container d-flex justify-content-center">
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
                     <div class="mb-2 img-container">
                         <input type="radio" name="selected_img" value="Atee_BG_1.png" id="img1_radio">
