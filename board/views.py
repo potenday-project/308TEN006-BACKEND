@@ -15,6 +15,9 @@ from django.views.decorators.http import require_POST
 from django.urls import reverse_lazy
 from django.db.models import Q
 
+def splash(request, tag=None):
+    return render(request, 'splash.html')
+
 def index(request, tag=None):
     memo = Memos.objects.all()
     return render(request, 'index.html', {'memo': memo})

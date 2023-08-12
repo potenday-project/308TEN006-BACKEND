@@ -7,7 +7,8 @@ import board.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board.views.index, name='index'),
+    path('index/', board.views.index, name='index'),
+    path('', board.views.splash, name='splash'),
     path('member/', include('member.urls')),
     path('board/', include('board.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
