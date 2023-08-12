@@ -43,18 +43,18 @@
 <body>
     
     <header data-bs-theme="light">
-        <div class="navbar navbar-light">
-            <div class="container">
-                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center hidden">
-                    <strong>Atee</strong>
+        <div class="navbar navbar-light mt-2">
+            <div class="container d-flex justify-content-between align-items-center">
+                <span class="btn" style="visibility: hidden;">다음</span>
+                <a href="{% url 'index' %}" class="text-center text-decoration-none" style="font-size: 18px; font-weight: bold; color: black;">
+                    프로필 만들기
                 </a>
-                <a href="{% url 'index' %}" class="navbar-brand d-flex align-items-center">
-                    <strong>프로필 만들기</strong>
-                </a>
-                <button type="submit" class="btn" style="outline: none; box-shadow: none;" onclick="handleNextButtonClick()">다음</button>
+                <button type="submit" id="nextButton" class="btn next-button" style="outline: none; box-shadow: none; font-size: 16px; background: none; border: none; color: #BDBDBD;" onclick="handleNextButtonClick()" disabled>다음</button>
             </div>
         </div>
     </header>
+    
+
 
     <body>
         <main>
@@ -63,23 +63,24 @@
                     {% csrf_token %}
                     <div class="mb-2 img-container">
                         <input type="radio" name="selected_img" value="Atee_BG_1.png" id="img1_radio">
-                        <img src="{% static 'img/Atee_BG_1.png' %}" alt="Profile Image 1" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img1_radio')">
+                        <img src="{% static 'img/Atee_BG_3.png' %}" alt="Profile Image 1" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img1_radio')">
                         <input type="radio" name="selected_img" value="Atee_BG_2.png" id="img2_radio">
                         <img src="{% static 'img/Atee_BG_2.png' %}" alt="Profile Image 2" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img2_radio')">
                     </div>
                     <div class="mb-2 img-container">
                         <input type="radio" name="selected_img" value="Atee_BG_3.png" id="img3_radio">
-                        <img src="{% static 'img/Atee_BG_3.png' %}" alt="Profile Image 3" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img3_radio')">
+                        <img src="{% static 'img/Atee_BG_1.png' %}" alt="Profile Image 3" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img3_radio')">
                         <input type="radio" name="selected_img" value="Atee_BG_4.png" id="img4_radio">
                         <img src="{% static 'img/Atee_BG_4.png' %}" alt="Profile Image 4" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img4_radio')">
                     </div>
                     <div class="mb-2 img-container">
                         <input type="radio" name="selected_img" value="Atee_BG_5.png" id="img5_radio">
-                        <img src="{% static 'img/Atee_BG_5.png' %}" alt="Profile Image 5" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img5_radio')">
+                        <img src="{% static 'img/Atee_BG_6.png' %}" alt="Profile Image 5" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img5_radio')">
                         <input type="radio" name="selected_img" value="Atee_BG_6.png" id="img6_radio">
-                        <img src="{% static 'img/Atee_BG_6.png' %}" alt="Profile Image 6" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img6_radio')">
+                        <img src="{% static 'img/Atee_BG_5.png' %}" alt="Profile Image 6" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img6_radio')">
                     </div>
                     <div class="mb-2 img-container">
+                        <!-- 이미지 바꾸기 (하늘색 배경) -->
                         <input type="radio" name="selected_img" value="Atee_BG_7.png" id="img7_radio">
                         <img src="{% static 'img/Atee_BG_7.png' %}" alt="Profile Image 7" width="145" height="145" style="border-radius: 16px;" onclick="handleImageClick('img7_radio')">
                         <input type="radio" name="selected_img" value="Atee_BG_8.png" id="img8_radio">
@@ -88,40 +89,48 @@
                 </form>
             </section>
         </main>
-
         <script>
-        
             function handleImageClick(radioId) {
                 var radio = document.getElementById(radioId);
-
+        
                 if (radio) {
                     radio.checked = true;
-
+        
                     // 이미 선택된 이미지의 클래스를 초기화
                     var selectedImages = document.getElementsByClassName('selected-img');
                     for (var i = 0; i < selectedImages.length; i++) {
                         selectedImages[i].classList.remove('selected-img');
                     }
-
+        
                     // 선택된 이미지에 클래스를 추가하여 스타일을 적용
                     var image = radio.nextElementSibling;
                     if (image) {
                         image.classList.add('selected-img');
                     }
+                    
+                    // "다음" 버튼의 폰트 컬러 변경
+                    var nextButton = document.querySelector('.next-button');
+                    if (nextButton) {
+                        nextButton.style.color = '#FF6827';
+                    }
+
+                    var nextButton = document.getElementById('nextButton');
+                    if (nextButton) {
+                        nextButton.disabled = false;
+                    }
+
                 }
             }
-
-
+        
             function handleNextButtonClick() {
                 // 폼 가져오기
                 var form = document.querySelector('form');
-
+        
                 // 폼 제출
                 if (form) {
                     form.submit();
                 }
             }
-
         </script>
         
     </body>
