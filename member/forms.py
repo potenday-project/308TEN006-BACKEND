@@ -28,7 +28,7 @@ class CreateUserForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['intro', 'nick']
+        fields = ['profile_image', 'intro', 'nick']
 
         labels = {
             'intro': '자기소개',
@@ -51,14 +51,16 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['intro', 'nick']
+        fields = ['intro','profile_image', 'nick']
 
         widgets = {
             'intro': forms.TextInput(attrs={'class': 'form-control'}),
+            'profile_image' : forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
             'nick': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
         labels = {
+            'profile_image': '프로필 사진',
             'intro': '자기소개',
             'nick': '닉네임',
         }
