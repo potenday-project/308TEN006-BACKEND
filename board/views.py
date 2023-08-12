@@ -28,7 +28,7 @@ def category(request, category_name=None):
     # 해당 카테고리에 속한 메모들의 태그들 가져오기
     related_tags = Tag.objects.filter(memos__category=category_name).distinct()
 
-    return render(request, 'category.html', {'memo': memo, 'related_tags': related_tags})
+    return render(request, 'category.html', {'memo': memo, 'related_tags': related_tags, 'category_name': category_name})
 
 def index(request, tag=None):
     if tag:
