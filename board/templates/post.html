@@ -122,28 +122,28 @@
         </div>
         </div>
           <input class="form-check-input" type="radio" name="category" id="category2" value="서핑" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category2');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '서핑' %}" data-radio-id="category2" style="cursor: pointer;">
-                <img src="{% static 'img/category_surfing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category2');">
+                <img src="{% static 'img/category_surfing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 12px;">서핑</span>
               </div>
             </div>
           </div>
           <input class="form-check-input" type="radio" name="category" id="category3" value="다이빙" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category3');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '다이빙' %}" data-radio-id="category3" style="cursor: pointer;">
-                <img src="{% static 'img/category_diving.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category3');">
+                <img src="{% static 'img/category_diving.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 12px;">다이빙</span>
               </div>
             </div>
           </div>  
           <input class="form-check-input" type="radio" name="category" id="category4" value="레이싱" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category4');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '레이싱' %}" data-radio-id="category4" style="cursor: pointer;">
-                <img src="{% static 'img/category_racing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category4');">
+                <img src="{% static 'img/category_racing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 12px;">레이싱</span>
               </div>
             </div>
@@ -154,20 +154,20 @@
     <section class="mt-3 mb-3 text-center container d-flex justify-content-center">
       <nav class="row row-cols-sm-2 row-cols-md-4 g-3">
           <input class="form-check-input" type="radio" name="category" id="category5" value="글라이딩" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category5');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '전체' %}" data-radio-id="category5" style="cursor: pointer;">
-                <img src="{% static 'img/category_gliding.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category5');">
+                <img src="{% static 'img/category_gliding.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 10px;">글라이딩</span>
               </div>
             </div>
           </div>
           
           <input class="form-check-input" type="radio" name="category" id="category6" value="수상레저" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category6');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '서핑' %}" data-radio-id="category6" style="cursor: pointer;">
-                <img src="{% static 'img/category_leisure.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category6');">
+                <img src="{% static 'img/category_leisure.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 10px;">수상레저</span>
               </div>
             </div>
@@ -175,10 +175,10 @@
           
 
           <input class="form-check-input" type="radio" name="category" id="category7" value="익스트림" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category7');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '다이빙' %}" data-radio-id="category7" style="cursor: pointer;">
-                <img src="{% static 'img/category_extreme.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category7');">
+                <img src="{% static 'img/category_extreme.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 10px; ">익스트림</span>
               </div>
             </div>
@@ -186,10 +186,10 @@
 
 
           <input class="form-check-input" type="radio" name="category" id="category8" value="스포츠" required>
-          <div class="col col-md-3">
+          <div class="col col-md-3" onclick="handleRadioClick('category8');">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
               <div class="card-body clickable-card" data-category-url="{% url 'category' '레이싱' %}" data-radio-id="category8" style="cursor: pointer;">
-                <img src="{% static 'img/category_sports.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category8');">
+                <img src="{% static 'img/category_sports.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 12px;">스포츠</span>
               </div>
             </div>
@@ -402,7 +402,7 @@
   });
 
   function handleRadioClick(radioId) {
-    const radios = document.querySelectorAll('input[type="radio"]');
+    const radios = document.querySelectorAll('input[type="radio"][name="category"]');
     radios.forEach(radio => {
       const cardBody = radio.nextElementSibling.querySelector('.card-body');
       if (radio.id === radioId) {
