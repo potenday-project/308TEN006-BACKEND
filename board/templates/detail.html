@@ -194,27 +194,21 @@
 
             
             <div class="d-flex mb-3">
+              {% if user.is_authenticated %}
               <div>
                 <img src="{{conn_profile.profile_image.url}}" width="36px" height="36px" class="rounded-circle">
               </div>
-              {% if user.is_authenticated %}
               <form method="POST" action="{% url 'comment_write' memokey=memo.pk %}">
                 {% csrf_token %}
                 <div class="input-group ms-1">
                   <input type="text" class="form-control custom-input no-border" placeholder="댓글을 입력해주세요." name="content">
-                  <button class="btn btn-outline-secondary custom-input no-border" type="button" id="button-addon2">
+                  <button class="btn btn-outline-secondary custom-input no-border" type="submit" id="button-addon2">
                     <b>등록</b>
                   </button>
                 </div>
               </form>
               {% else %}
-              <img src="https://github.com/mdo.png" width="36px" height="36px" class="rounded-circle">
-                <div class="input-group ms-1">
-                  <input type="text" class="form-control custom-input no-border" placeholder="로그인을 해주세요." name="content" disabled>
-                  <button class="btn btn-outline-secondary custom-input no-border" type="button" id="button-addon2" disabled>
-                    <b>등록</b>
-                  </button>
-              </div>
+                  <input type="text" class="form-control custom-input no-border" placeholder="로그인을 해주세요." name="content" disabled style="background-color: #F5F5F5 !important;">
               {% endif %}
             </div>
 
