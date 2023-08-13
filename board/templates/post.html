@@ -250,7 +250,7 @@
     </section> 
 
     <section class="text-center container d-flex justify-content-center">
-      <input type="date" class="form-control custom-input" id="id_platform" name="experience_date" value="2023-08-01" required id="id_experience_date" placeholder="예약 링크 정보를 알려주세요.">
+      <input type="date" class="form-control custom-input" id="id_platform" name="experience_date" value="" required="" placeholder="예약 링크 정보를 알려주세요.">
     </section>
       
     <section class="py-3 text-center container d-flex justify-content-start">
@@ -276,6 +276,13 @@
 
 
 <script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+      var currentDate = new Date();
+      var formattedDate = currentDate.toISOString().substr(0, 10); // YYYY-MM-DD 형식으로 변환
+      var dateInput = document.getElementById('id_platform');
+      dateInput.value = formattedDate;
+  });
 
   document.addEventListener('DOMContentLoaded', function() {
     const clickableCards = document.querySelectorAll('.clickable-card');
@@ -301,6 +308,55 @@
   function handleNextButtonClick() {
       // 폼 가져오기
       var form = document.querySelector('form');
+
+      // 업로드된 이미지 확인
+      var uploadedImage = document.getElementById('uploaded-image');
+      if (!uploadedImage.getAttribute('src')) {
+          alert('이미지를 업로드해주세요.');
+          return; // 이미지가 없으면 함수 종료
+      }
+
+      // 제목 확인
+      var titleInput = document.getElementById('id_title');
+      if (!titleInput.value) {
+          alert('제목을 작성해주세요.');
+          return; // 제목이 없으면 함수 종료
+      }
+
+      // 내용 확인
+      var textArea = document.getElementById('id_text-intro');
+      if (!textArea.value) {
+          alert('체험 내용을 작성해주세요.');
+          return; // 내용이 없으면 함수 종료
+      }
+      
+      // 카테고리 확인
+      var categoryRadios = document.querySelectorAll('input[name="category"]');
+      var selectedCategory = false;
+      categoryRadios.forEach(function(radio) {
+          if (radio.checked) {
+              selectedCategory = true;
+          }
+      });
+      if (!selectedCategory) {
+          alert('카테고리를 선택해주세요.');
+          return; // 카테고리가 선택되지 않으면 함수 종료
+      }
+
+      // 해시태그 확인
+      var tagInput = document.getElementById('id_tag_text');
+      var tagText = tagInput.value;
+      if (!tagText.match(/^#\w+(\s#?\w+)*$/)) {
+          alert('올바른 형식으로 해시태그를 입력해주세요. 예시: #태그1 #태그2 #태그3');
+          return; // 해시태그 형식이 맞지 않으면 함수 종료
+      }
+
+      // 위치 정보 확인
+      var districtInput = document.getElementById('id_district');
+      if (!districtInput.value) {
+          alert('액티비티 장소를 알려주세요.');
+          return; // 위치 정보가 없으면 함수 종료
+      }
 
       // 폼 제출
       if (form) {
