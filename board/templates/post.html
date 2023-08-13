@@ -83,7 +83,7 @@
     {%csrf_token%}
     <div class="d-flex justify-content-center">
       <label for="id_img" class="mb-3 w-100">
-        <img src="{% static 'img/post_img_upload.png' %}" alt="banner_1" width="360px" height="360px" id="uploaded-image" style="width: 100%;">
+        <img src="{% static 'img/post_img_upload_new.png' %}" alt="banner_1" width="360px" height="360px" id="uploaded-image" style="width: 100%;">
       </label>
     </div>
 
@@ -102,15 +102,14 @@
 
     <section class="mt-3 text-center container d-flex justify-content-center">
       <nav class="nav nav-underline justify-content-between">
-          <input class="form-check-input" type="radio" name="category" id="category1" value="전체" required disabled>
-          <div class="col col-md-3">
-            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
-              <div class="card-body clickable-card" data-category-url="{% url 'category' '전체' %}" style="cursor: pointer;">
-                <img src="{% static 'img/category_all.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category1');">
+        <div class="col col-md-3">
+          <div class="card" style="border-radius: 16px; background-color: #FFFFFF; border: 2px solid #F0F0F0;">
+            <div class="card-body clickable-card" style="cursor: pointer;">
+                <img src="{% static 'img/category_eyes.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;">
                 <span class="card-title text-center" style="font-size: 12px;">👉👉</span>
-              </div>
             </div>
-          </div>
+        </div>
+        </div>
           <input class="form-check-input" type="radio" name="category" id="category2" value="서핑" required>
           <div class="col col-md-3">
             <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
