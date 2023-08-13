@@ -16,6 +16,9 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import re
 
+def magazine(request):
+    return render(request, 'magazine.html')
+
 def splash(request):
     return render(request, 'splash.html')
 
