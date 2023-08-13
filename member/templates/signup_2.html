@@ -141,15 +141,20 @@
             function checkInput() {
                 var inputElement = document.getElementById('nickname');
                 var submitButton = document.getElementById('submitButton');
-        
-                if (inputElement.value.trim() !== '') { // 입력값이 있는 경우
+                var nickname = inputElement.value.trim(); // 입력값 앞뒤의 공백 제거
+
+                // 정규식을 사용하여 닉네임에 특수문자가 있는지 확인
+                var specialCharacterRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+                
+                if (nickname !== '' && !specialCharacterRegex.test(nickname)) { // 입력값이 있고 특수문자가 없는 경우
                     submitButton.removeAttribute('disabled'); // 버튼의 disabled 속성 제거
                     submitButton.style.backgroundColor = '#202020'; // 버튼의 배경색 변경
-                } else { // 입력값이 없는 경우
+                } else { // 입력값이 없거나 특수문자가 있는 경우
                     submitButton.setAttribute('disabled', 'true'); // 버튼의 disabled 속성 추가
                     submitButton.style.backgroundColor = '#BDBDBD'; // 버튼의 배경색 변경
                 }
             }
+
         </script>
         
 

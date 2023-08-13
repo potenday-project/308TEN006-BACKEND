@@ -172,7 +172,7 @@
                 <span class="like_button">
                   <a class="like" name="{{ memo.id }}" style="text-decoration: none; color: black;">
                     {% if memo.likes.all %}
-                      <img src="{% static 'img/card_heart_tobe.png' %}" width="24px" height="24px">
+                      <img src="{% static 'img/heart_asis_new.png' %}" width="24px" height="24px">
                     {% else %}
                       <img src="{% static 'img/card_heart_asis.png' %}" width="24px" height="24px">
                     {% endif %}
@@ -278,32 +278,32 @@
   if ($("#user_name").text() === $(".writer_name").text()) {
     $("#control_id").removeClass("hidden");
   }
-
+    
   $('.like').click(function () {
-    var pk = $(this).attr('name');
-    var likeIcon = $(this).find('svg'); // Get the SVG icon element
-    $.ajax({
-      type: "POST",
-      url: "{% url 'like' %}",
-      data: { 'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
-      dataType: "json",
-      success: function (response) {
-        if (response.likes_count === 1) {
-          $('#count' + pk).html(response.likes_count);
-          likeIcon.replaceWith('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>');
-        } else if (response.likes_count === 0) {
-          $('#count' + pk).html('0');
-          likeIcon.replaceWith('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/></svg>');
-        } else {
-          $('#count' + pk).html(response.likes_count);
-          likeIcon.replaceWith('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>');
-        }
-        alert(response.message);
-      },
-      error: function (request, status, error) {
-        alert('로그인이 필요합니다.');
-      }
-    });
+      var pk = $(this).attr('name');
+      var likeIcon = $(this).find('img'); // Get the <img> tag element
+      $.ajax({
+          type: "POST",
+          url: "{% url 'like' %}",
+          data: { 'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+          dataType: "json",
+          success: function (response) {
+              if (response.likes_count === 1) {
+                  $('#count' + pk).html(response.likes_count);
+                  likeIcon.attr('src', '{% static "img/heart_asis_new.png" %}');
+              } else if (response.likes_count === 0) {
+                  $('#count' + pk).html('0');
+                  likeIcon.attr('src', '{% static "img/card_heart_asis.png" %}');
+              } else {
+                  $('#count' + pk).html(response.likes_count);
+                  likeIcon.attr('src', '{% static "img/heart_asis_new.png" %}');
+              }
+              alert(response.message);
+          },
+          error: function (request, status, error) {
+              alert('로그인이 필요합니다.');
+          }
+      });
   });
 
   $(".comment_writer_name");
