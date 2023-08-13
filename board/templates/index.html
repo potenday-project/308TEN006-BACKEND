@@ -174,26 +174,27 @@
         <a href="{% url 'detail' memo.id %}" class="text-decoration-none">
           <div class="col d-flex justify-content-center">
             <div class="card" style="width: 320px; border-radius: 15px;">
-              <img src="{{memo.images.url}}" class="custom-image" alt="banner_1" style="border-top-left-radius: 15px; border-top-right-radius: 16px; width: 100%;">
-
+              <div style="overflow: hidden; border-top-left-radius: 15px; border-top-right-radius: 16px;">
+                <img src="{{memo.images.url}}" class="custom-image" alt="banner_1" style="width: 100%; object-fit: cover; object-position: center;">
+              </div>
               <div class="card-body">
 
 
                 <div>
                   <span class="fw-bolder" style="font-size: 16px;">
-                    {{memo.title}}
+                    {{ memo.title|truncatechars:20|safe }}{% if memo.title|length > 20 %}...{% endif %}
                   </span>
                 </div>
                 <div>
                   <span class="fw-normal" style="font-size: 14px;">
-                    {{memo.text}}
+                    {{ memo.text|truncatechars:25|safe }}{% if memo.text|length > 25 %}...{% endif %}
                   </span>
                 </div>
 
                 <div class="mt-2">
                   {% for tag in memo.tag_set.all %}
                     <span class="custom-tag">
-                      {{ tag.tag_name }}
+                      #{{ tag }}
                     </span>
                   {% endfor %}
                 </div>
