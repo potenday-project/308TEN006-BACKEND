@@ -24,9 +24,9 @@ def splash(request):
 
 def category(request, category_name=None):
     if category_name == "전체":
-        memo = Memos.objects.all()
+        memo = Memos.objects.all().order_by('-id')
     else:
-        memo = Memos.objects.filter(category=category_name)
+        memo = Memos.objects.filter(category=category_name).order_by('-id')
 
     # 해당 카테고리에 속한 메모들의 태그들 가져오기
     related_tags = Tag.objects.filter(memos__category=category_name).distinct()
@@ -35,9 +35,9 @@ def category(request, category_name=None):
 
 def index(request, tag=None):
     if tag:
-        memo = Memos.objects.filter(tag_set__tag_name=tag)
+        memo = Memos.objects.filter(tag_set__tag_name=tag).order_by('-id')
     else:
-        memo = Memos.objects.all()
+        memo = Memos.objects.all().order_by('-id')
     return render(request, 'index.html', {'memo': memo})
 
 def post(request):
