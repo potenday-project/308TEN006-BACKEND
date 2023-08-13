@@ -228,6 +228,7 @@
     });
   });
 
+
   function handleNextButtonClick() {
       // 폼 가져오기
       var form = document.querySelector('form');
@@ -244,6 +245,9 @@
       if (!titleInput.value) {
           alert('제목을 작성해주세요.');
           return; // 제목이 없으면 함수 종료
+      } else if (titleInput.value.length > 20) {
+          alert('제목은 최대 20글자까지 입력 가능합니다.');
+          return; // 제목이 20글자를 초과하면 함수 종료
       }
 
       // 내용 확인
@@ -251,6 +255,9 @@
       if (!textArea.value) {
           alert('체험 내용을 작성해주세요.');
           return; // 내용이 없으면 함수 종료
+      } else if (textArea.value.length > 230) {
+          alert('체험 내용은 최대 230글자까지 입력 가능합니다.');
+          return; // 내용이 230글자를 초과하면 함수 종료
       }
       
       // 카테고리 확인
@@ -272,6 +279,12 @@
       if (!tagText.match(/^#\w+(\s#?\w+)*$/)) {
           alert('올바른 형식으로 해시태그를 입력해주세요. 예시: #태그1 #태그2 #태그3');
           return; // 해시태그 형식이 맞지 않으면 함수 종료
+      } else {
+          var tags = tagText.split(/\s+/);
+          if (tags.length > 6) {
+              alert('최대 6개의 해시태그까지 입력 가능합니다.');
+              return; // 해시태그가 6개를 초과하면 함수 종료
+          }
       }
 
       // 위치 정보 확인
