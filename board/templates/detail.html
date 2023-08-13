@@ -19,6 +19,26 @@
     <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
 
     <style>
+      .custom-keyword {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 41px;
+        top: 62px;
+        left: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #F0F0F0;
+        background-color: #F0F0F0;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        gap: 10px;
+        color: #202020DB;
+      }
 
       .custom-tag {
         display: inline-block;
@@ -106,16 +126,19 @@
                 </span>
               </div>
             </div>
+
             <div>
               <span class="fw-bolder" style="font-size: 16px;">
                 {{memo.title}}
               </span>
             </div>
+
             <div class="mb-4">
               <span class="fw-normal" style="font-size: 14px;">
                 {{memo.text}}
               </span>
             </div>
+
             <div class="mt-2 mb-2">
               {% for tag in tag_all %}
               <span class="custom-tag">
@@ -123,6 +146,18 @@
               </span>
               {% endfor %}
             </div>
+
+
+            <div class="mt-2 mb-2">
+                {% for description in descriptions_list %}
+                    {% if description %}
+                      <span class="custom-keyword mb-1">
+                          {{ description }} 
+                      </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
 
             <div class="mb-2">
               <img src="{% static 'img/card_location.png' %}" width="12px" height="12px">

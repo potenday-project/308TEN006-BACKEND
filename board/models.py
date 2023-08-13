@@ -19,6 +19,7 @@ class Memos(models.Model):
     create_date = models.DateTimeField()
     name = models.ForeignKey(User, on_delete = models.CASCADE,null=True)
     likes = models.ManyToManyField(User, related_name='likes')
+    keyword = models.IntegerField(verbose_name='키워드_비트연산', null=True, default=0)
 
     def tag_save(self):
         tags = re.findall(r'#(\w+)\b', self.tag_text)

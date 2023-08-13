@@ -16,6 +16,27 @@
     <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
     
     <style>
+      .custom-keyword {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 41px;
+        top: 62px;
+        left: 20px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #F0F0F0;
+        background-color: #F0F0F0;
+        font-family: Pretendard;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        gap: 10px;
+        color: #202020DB;
+      }
+
       .custom-form-control {
         border: none;
         border-radius: 0; /* 선택적으로 border-radius 조정 */
@@ -165,13 +186,65 @@
             </div>
           </div>
 
-          
       </nav>
     </section>
 
     <section class="py-3 text-center container d-flex justify-content-center">
       <input type="text" class="form-control custom-input" id="id_tag_text" name="tag_text" placeholder="#해시태그를 입력해주세요. (최대 n개)">
     </section>
+
+    <section class="py-3 text-center container d-flex justify-content-start">
+      <span>키워드 선택 ✨</span>
+    </section> 
+    <section class="text-center container d-flex justify-content-start">
+      <span>가격</span>
+    </section>
+    <section class="text-center container d-flex justify-content-start">
+      <div class="nav-scroller py-1 mb-3">
+        <nav class="nav nav-underline justify-content-between">
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword1" value="1" required>
+          <span class="custom-keyword">💸 비싸지만 아깝지 않았어요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword2" value="2" required>
+          <span class="custom-keyword">👌 체험 가격이 합리적이에요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword4" value="4" required>
+          <span class="custom-keyword">🤑 다른곳에 비해 비싼거 같아요</span>
+        </nav>
+      </div>
+    </section>
+      
+    <section class="text-center container d-flex justify-content-start">
+      <span>접근성</span>
+    </section>
+    <section class="text-center container d-flex justify-content-start">
+      <div class="nav-scroller py-1 mb-3">
+        <nav class="nav nav-underline justify-content-between">
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword8" value="8" required>
+          <span class="custom-keyword">🚃 대중교통으로 가기 편해요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword16" value="16" required>
+          <span class="custom-keyword">🚕 택시, 자차가 필요해요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword32" value="32" required>
+          <span class="custom-keyword">🚶‍♂️ 걸어서 갈만해요</span>
+        </nav>
+      </div>
+    </section>
+      
+      
+    <section class="text-center container d-flex justify-content-start">
+      <span>편의시설</span>
+    </section>
+    <section class="text-center container d-flex justify-content-start">
+      <div class="nav-scroller py-1 mb-3">
+        <nav class="nav nav-underline justify-content-between">
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword64" value="64" required>
+          <span class="custom-keyword">✨ 체험 장소가 깔끔해요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword128" value="128" required>
+          <span class="custom-keyword">🚽 화장실이 청결해요</span>
+          <input class="form-check-input" type="radio" name="keyword_select" id="keyword256" value="256" required>
+          <span class="custom-keyword">🅿️ 주차가 쉬워요</span>
+        </nav>
+      </div>
+    </section>
+    <input type="hidden" name="selected_keywords" id="selected-keywords-input">
 
     <section class="py-3 text-center container d-flex justify-content-start">
       <span>체험 날짜 🔗</span>
@@ -204,6 +277,7 @@
 
 
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
     const clickableCards = document.querySelectorAll('.clickable-card');
     clickableCards.forEach(card => {
@@ -262,6 +336,47 @@
       }
     });
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const maxSelectableKeywords = 3;
+    const selectedKeywords = [];
+
+    const customKeywords = document.querySelectorAll('.custom-keyword');
+    customKeywords.forEach(keyword => {
+      keyword.addEventListener('click', function() {
+        const radioId = this.previousElementSibling.getAttribute('id');
+        const radioInput = document.getElementById(radioId);
+
+        if (radioInput) {
+          if (selectedKeywords.includes(radioId)) {
+            selectedKeywords.splice(selectedKeywords.indexOf(radioId), 1);
+            keyword.style.backgroundColor = '#F5F5F5';
+            keyword.style.borderRadius = '8px';
+          } else if (selectedKeywords.length < maxSelectableKeywords) {
+            selectedKeywords.push(radioId);
+            keyword.style.backgroundColor = '#FF6827';
+            keyword.style.borderRadius = '8px';
+          }
+
+          // Update radio button selections
+          customKeywords.forEach(customKeyword => {
+            const customRadioId = customKeyword.previousElementSibling.getAttribute('id');
+            const isSelected = selectedKeywords.includes(customRadioId);
+            document.getElementById(customRadioId).checked = isSelected;
+            customKeyword.style.backgroundColor = isSelected ? '#FF6827' : '#F5F5F5';
+            customKeyword.style.borderRadius = '8px';
+          });
+
+          // Prepare and send POST request
+          const selectedValues = selectedKeywords.map(id => parseInt(document.getElementById(id).value));
+          // Trigger the hidden input field's value update
+          document.getElementById('selected-keywords-input').value = selectedValues;
+
+
+        }
+      });
+    });
+  });
 
 </script>
 </body>

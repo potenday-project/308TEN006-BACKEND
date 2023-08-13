@@ -38,14 +38,18 @@ def index(request, tag=None):
     return render(request, 'index.html', {'memo': memo})
 
 def post(request):
-    print(request.POST)
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
-        
         if form.is_valid(): 
             post = form.save(commit=False)
             post.name = User.objects.get(username=request.user.get_username())
             post.images = request.FILES.get('images')  # KeyError를 피하기 위해 get()을 사용합니다
+            selected_keywords = request.POST.get('selected_keywords')  # "1,2,4" 형태의 문자열
+            selected_values = [int(value) for value in selected_keywords.split(',')]  # [1, 2, 4]
+            total_sum = sum(selected_values)  # 1 + 2 + 4 = 7
+
+            post.keyword = total_sum  # Assign selected keywords to the field in your model
+            
             post.generate()
             post.tag_save()
             post.save()
@@ -65,8 +69,17 @@ def detail(request, memo_id):
     tags_with_hashes = re.findall(r'#\w+', tag_text)
     tag_all = [tag for tag in tags_with_hashes]
     
-    return render(request, 'detail.html', {'memo': memo, 'conn_profile': conn_profile, 'tag_all': tag_all})
-
+    # 키워드 값에 따른 치환된 설명을 얻어옴
+    descriptions_list = map_all_keywords_to_descriptions(memo.keyword)
+    
+    context = {
+        'memo': memo,
+        'conn_profile': conn_profile,
+        'tag_all': tag_all,
+        'descriptions_list': descriptions_list
+    }
+    
+    return render(request, 'detail.html', context=context)
 
 def modify(request, memo_id):
     if request.method == "POST":
@@ -156,3 +169,23 @@ def comment_delete(request, memo_pk, pk):
         return redirect('detail', memo_pk)
     else:
         return render(request, 'warning.html')
+    
+def map_all_keywords_to_descriptions(keyword_value):
+    descriptions = {
+        1: '💸 비싸지만 아깝지 않았어요',
+        2: '👌 체험 가격이 합리적이에요',
+        4: '🤑 다른곳에 비해 비싼거 같아요',
+        8: '🚃 대중교통으로 가기 편해요',
+        16: '🚕 택시, 자차가 필요해요',
+        32: '🚶‍♂️ 걸어서 갈만해요',
+        64: '✨ 체험 장소가 깔끔해요',
+        128: '🚽 화장실이 청결해요',
+        256: '🅿️ 주차가 쉬워요',
+    }
+
+    descriptions_list = []
+    for key in descriptions:
+        if keyword_value & key:  # Check if the bit is set in the keyword_value
+            descriptions_list.append(descriptions[key])
+
+    return descriptions_list
