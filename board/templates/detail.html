@@ -69,7 +69,12 @@
               <a class="text-center text-decoration-none" style="visibility: hidden;">
                   카테고리
               </a>
-              <button style="visibility: hidden;">완료</button>
+              {% if user == conn_profile.user %}
+                <a href="{% url 'modify' memo_id=memo.pk %}" class="btn next-button" style="outline: none; box-shadow: none; font-size: 16px; background: none; border: none; color: #FF6827;" >수정</a>
+
+              {% else %}
+                <button style="visibility: hidden;">완료</button>
+              {% endif %}
           </div>
       </div>
   </header>
@@ -117,7 +122,6 @@
                 {{ tag }}
               </span>
               {% endfor %}
-
             </div>
 
             <div class="mb-2">

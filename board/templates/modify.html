@@ -1,0 +1,284 @@
+{% load static %}
+<!doctype html>
+<html lang="ko" data-bs-theme="auto">
+
+<head>
+    <script src="{% static 'assets/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.115.4">
+    <title>Atee</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main_styles.css' %}" rel="stylesheet">
+    
+    <style>
+      .custom-form-control {
+        border: none;
+        border-radius: 0; /* 선택적으로 border-radius 조정 */
+      }
+
+      .custom-input {
+        height: 48px; /* 입력 필드의 높이 */
+        font-size: 16px; /* 레디스 폰트 크기 */
+        text-align: left; /* 가운데 정렬 */
+        border-radius: 16px; /* 모서리를 20px로 둥글게 만들기 */
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <header data-bs-theme="light">
+        <div class="navbar navbar-light mt-2">
+            <div class="container d-flex justify-content-between align-items-center">
+                <a class="btn" href="{% url 'index' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </a>
+                <a href="{% url 'index' %}" class="text-center text-decoration-none" style="font-size: 18px; font-weight: bold; color: black;">
+                    카테고리
+                </a>
+                <button type="submit" id="nextButton" class="btn next-button" style="outline: none; box-shadow: none; font-size: 16px; background: none; border: none; color: #FF6827;" onclick="handleNextButtonClick()">완료</button>
+            </div>
+        </div>
+    </header>
+
+
+<main>
+
+  <form method="POST" class="post-form" enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="d-flex justify-content-center">
+      <label for="id_img" class="mb-3 w-100">
+        <img src="{{memo.images.url}}" alt="banner_1" width="360px" height="360px" id="uploaded-image" style="width: 100%;">
+      </label>
+    </div>
+
+    <input type="file" name="images" accept="image/*" id="id_img" style="display: none;">
+    <input type="number" name="price" id="id_price" style="display: none;" value="{{memo.price}}">
+
+    <input type="text" name="title" class="form-control custom-form-control" maxlength="150" required id="id_title" placeholder="제목을 작성해주세요. (최대 00자)" value="{{memo.title}}">
+    <hr class="my-2">
+    <textarea class="form-control custom-form-control" id="id_text-intro" rows="5" name="text" placeholder="체험하신 액티비티를 공유해주세요 (최대 000자)" style="height: 200px">{{memo.text}}</textarea>
+    <hr class="my-2">
+
+    
+    <section class="mt-3 text-center container d-flex justify-content-start">
+      <span>카테고리 선택 ✨</span>
+    </section>
+
+    <section class="mt-3 text-center container d-flex justify-content-center">
+      <nav class="nav nav-underline justify-content-between">
+          <input class="form-check-input" type="radio" name="category" id="category1" value="전체" required disabled>
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '전체' %}" style="cursor: pointer;">
+                <img src="{% static 'img/category_all.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category1');">
+                <span class="card-title text-center" style="font-size: 12px;">👉👉</span>
+              </div>
+            </div>
+          </div>
+          <input class="form-check-input" type="radio" name="category" id="category2" value="서핑" required data-category="서핑">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '서핑' %}" data-radio-id="category2" style="cursor: pointer;">
+                <img src="{% static 'img/category_surfing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category2');">
+                <span class="card-title text-center" style="font-size: 12px;">서핑</span>
+              </div>
+            </div>
+          </div>
+          <input class="form-check-input" type="radio" name="category" id="category3" value="다이빙" required data-category="다이빙">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '다이빙' %}" data-radio-id="category3" style="cursor: pointer;">
+                <img src="{% static 'img/category_diving.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category3');">
+                <span class="card-title text-center" style="font-size: 12px;">다이빙</span>
+              </div>
+            </div>
+          </div>  
+          <input class="form-check-input" type="radio" name="category" id="category4" value="레이싱" required data-category="레이싱">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '레이싱' %}" data-radio-id="category4" style="cursor: pointer;">
+                <img src="{% static 'img/category_racing.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category4');">
+                <span class="card-title text-center" style="font-size: 12px;">레이싱</span>
+              </div>
+            </div>
+          </div>
+      </nav>
+    </section>
+
+    <section class="mt-3 mb-3 text-center container d-flex justify-content-center">
+      <nav class="nav nav-underline justify-content-between">
+
+          <input class="form-check-input" type="radio" name="category" id="category5" value="글라이딩" required data-category="글라이딩">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '글라이딩' %}" data-radio-id="category5" style="cursor: pointer;">
+                <img src="{% static 'img/category_gliding.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category5');">
+                <span class="card-title text-center" style="font-size: 10px;">글라이딩</span>
+              </div>
+            </div>
+          </div>
+          
+          <input class="form-check-input" type="radio" name="category" id="category6" value="수상레저" required data-category="수상레저">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '수상레저' %}" data-radio-id="category6" style="cursor: pointer;">
+                <img src="{% static 'img/category_leisure.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category6');">
+                <span class="card-title text-center" style="font-size: 10px;">수상레저</span>
+              </div>
+            </div>
+          </div>
+
+          <input class="form-check-input" type="radio" name="category" id="category7" value="익스트림" required data-category="익스트림">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '익스트림' %}" data-radio-id="category7" style="cursor: pointer;">
+                <img src="{% static 'img/category_extreme.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category7');">
+                <span class="card-title text-center" style="font-size: 10px; ">익스트림</span>
+              </div>
+            </div>
+          </div>  
+
+          <input class="form-check-input" type="radio" name="category" id="category8" value="스포츠" required data-category="스포츠">
+          <div class="col col-md-3">
+            <div class="card" style="border-radius: 16px; background-color: #F5F5F5; border: none;">
+              <div class="card-body clickable-card" data-category-url="{% url 'category' '스포츠' %}" data-radio-id="category8" style="cursor: pointer;">
+                <img src="{% static 'img/category_sports.png' %}" class="d-block mx-auto mb-1" alt="banner_2" width="36px" height="36px" style="border-radius: 16px;" onclick="handleRadioClick('category8');">
+                <span class="card-title text-center" style="font-size: 12px;">스포츠</span>
+              </div>
+            </div>
+          </div>
+          
+      </nav>
+    </section>
+
+    <section class="py-3 text-center container d-flex justify-content-center">
+      <input type="text" class="form-control custom-input" id="id_tag_text" name="tag_text" value="{% for tag in tag_all %}{{ tag }} {% endfor %}" placeholder="#해시태그를 입력해주세요. (최대 n개)">
+    </section>
+    
+    <section class="py-3 text-center container d-flex justify-content-start">
+      <span>체험 날짜 🔗</span>
+    </section> 
+
+    <section class="text-center container d-flex justify-content-center">
+      <input type="date" class="form-control custom-input" id="id_platform" name="experience_date" value="{{ memo.experience_date|date:'Y-m-d' }}" required id="id_experience_date" placeholder="예약 링크 정보를 알려주세요.">
+    </section>
+      
+    <section class="py-3 text-center container d-flex justify-content-start">
+      <span>위치 정보 📍</span>
+    </section> 
+
+    <section class="text-center container d-flex justify-content-center">
+      <input type="text" class="form-control custom-input" id="id_district" name="district" placeholder="액티비티 장소를 알려주세요." value="{{memo.district}}">
+    </section>
+    
+    <section class="py-3 text-center container d-flex justify-content-start">
+      <span>예약 정보 🔗</span>
+      <span style="font-size: 10px;">(선택)</span>
+    </section> 
+
+    <section class="text-center container d-flex justify-content-center mb-5">
+      <input type="text" class="form-control custom-input" id="id_platform" name="platform" placeholder="예약 링크 정보를 알려주세요." value="{{memo.platform}}">
+    </section>
+
+  </form>
+
+</main>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const clickableCards = document.querySelectorAll('.clickable-card');
+    clickableCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const radioId = this.getAttribute('data-radio-id');
+        const radioInput = document.getElementById(radioId);
+        if (radioInput) {
+          // 해당 라디오 버튼 체크
+          radioInput.checked = true;
+          
+          // 다른 라디오 버튼 해제
+          const otherRadioInputs = document.querySelectorAll('.form-check-input:not(#' + radioId + ')');
+          otherRadioInputs.forEach(input => {
+            input.checked = false;
+          });
+        }
+      });
+    });
+  });
+
+
+  function handleNextButtonClick() {
+      // 폼 가져오기
+      var form = document.querySelector('form');
+
+      // 폼 제출
+      if (form) {
+          form.submit();
+      }
+  }
+
+  const input = document.getElementById('id_img');
+  const uploadedImage = document.getElementById('uploaded-image');
+
+  input.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+              uploadedImage.src = event.target.result;
+          }
+          reader.readAsDataURL(file);
+      }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const radios = document.querySelectorAll('input[type="radio"]');
+    
+    radios.forEach(radio => {
+      const cardBody = radio.nextElementSibling.querySelector('.card-body');
+      const memoCategory = radio.getAttribute('data-category'); // 데이터 속성 값 가져오기
+      if ("{{ memo.category }}" === memoCategory) {
+        cardBody.style.backgroundColor = '#FF6827';
+        cardBody.style.borderRadius = '16px';  // 변경된 border-radius 값
+        radio.checked = true;
+      } else {
+        cardBody.style.backgroundColor = '#F5F5F5';
+        cardBody.style.borderRadius = '16px';  // 원래의 border-radius 값
+      }
+    });
+  });
+
+
+  
+  function handleRadioClick(radioId) {
+    const radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(radio => {
+      const cardBody = radio.nextElementSibling.querySelector('.card-body');
+      if (radio.id === radioId) {
+        cardBody.style.backgroundColor = '#FF6827';
+        cardBody.style.borderRadius = '16px';  // 변경된 border-radius 값
+      } else {
+        cardBody.style.backgroundColor = '#F5F5F5';
+        cardBody.style.borderRadius = '16px';  // 원래의 border-radius 값
+      }
+    });
+  }
+
+</script>
+</body>
+</html>

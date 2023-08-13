@@ -67,6 +67,37 @@ def detail(request, memo_id):
     
     return render(request, 'detail.html', {'memo': memo, 'conn_profile': conn_profile, 'tag_all': tag_all})
 
+
+def modify(request, memo_id):
+    if request.method == "POST":
+        memo = Memos.objects.get(pk = memo_id)
+        form = PostForm(request.POST, request.FILES, instance=memo)
+
+        if form.is_valid():
+            memo = form.save(commit=False)
+            memo.tag_save()
+            memo.save()
+
+            context = {'memo': memo,}
+            content = request.POST.get('content')
+            
+            messages.info(request, '수정 완료')
+            return redirect('detail', memo_id=memo_id)
+        else:
+            print(form.errors)  # 폼의 오류 메시지 출력
+            return HttpResponse("폼이 유효하지 않습니다")
+    else:
+        memo = Memos.objects.get(pk = memo_id)
+        if memo.name == User.objects.get(username = request.user.get_username()):
+            memo = Memos.objects.get(pk = memo_id)
+            form = PostForm(instance = memo)
+            tag_text = memo.tag_text
+            tags_with_hashes = re.findall(r'#\w+', tag_text)
+            tag_all = [tag for tag in tags_with_hashes]
+            return render(request, 'modify.html', {'memo' : memo, 'form' : form, 'tag_all': tag_all})
+        else:
+            return render(request, 'warning.html')
+
 @login_required
 @require_POST
 def like(request):

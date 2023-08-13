@@ -153,11 +153,12 @@
               </div>
             </a>
             {% endfor %}
+            <div class="mb-5"></div>
+
           {% else %}
             <div class="col text-center">
               <img src="{% static 'img/no_content.png' %}" class="w-100" style="margin-top: 50%; margin-bottom: 50%;">
-              <button type="submit" class="btn btn-dark w-100 custom-button mt-3" onclick="redirectToPost()">후기
-                올리기</button>
+              <button type="submit" class="btn btn-dark w-100 custom-button mt-3" onclick="redirectToPost()">후기 올리기</button>
             </div>
           {% endif %}
         </div>
@@ -167,6 +168,11 @@
   </main>
 
   <script>
+
+    document.getElementById('goBackButton').addEventListener('click', function() {
+      window.location.href = "{% url 'index' %}";
+    });
+
     function redirectToPost() {
       window.location.href = "{% url 'post' %}";
     }

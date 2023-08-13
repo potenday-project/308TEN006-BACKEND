@@ -90,6 +90,7 @@
                         </div>
                     </form>
 
+                    <button type="submit" class="btn btn-dark w-100 custom-button mt-3" onclick="redirectToLogout()">로그아웃</button>
 
                 </div>
             </section>
@@ -105,24 +106,9 @@
                     form.submit();
                 }
             }
+            function redirectToLogout() {
+                window.location.href = "{% url 'logout' %}";
+            }
         </script>
     </body>
 </html>
-
-
-
-
-
-<!-- <h1>마이 페이지</h1>
-
-<h3>"{{id}}"님의 프로필</h3>
-
-<a href="{% url 'profile_update' %}">프로필 수정하기</a>
-
-{% if intro %}
-<p>{{intro | linebreaksbr}}</p>
-{% else %}
-<p>자기소개가 없습니다.</p>
-{% endif %}
-
-<a href="{% url 'index' %}">home</a> -->
