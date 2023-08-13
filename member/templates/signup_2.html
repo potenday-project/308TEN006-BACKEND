@@ -58,6 +58,46 @@
 </head>
 
 <body>
+{% if messages %}
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Updated close button code -->
+            </div>
+            <div class="modal-body">
+                {% for message in messages %}
+                    {{ message.message }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var errorModal = document.getElementById('errorModal');
+        if (errorModal) {
+            errorModal.classList.add('show');
+            errorModal.style.display = 'block';
+            document.body.classList.add('modal-open');
+            var backdrop = document.createElement('div');
+            backdrop.classList.add('modal-backdrop', 'fade', 'show');
+            document.body.appendChild(backdrop);
+            
+            var closeButton = errorModal.querySelector('.btn-close'); // Updated selector
+            closeButton.addEventListener('click', function() {
+                errorModal.style.display = 'none';
+                backdrop.remove();
+                document.body.classList.remove('modal-open');
+            });
+        }
+    });
+</script>
+{% endif %}
+
+
     <header data-bs-theme="light" style="background-color: transparent;">
         <div class="navbar navbar-light mt-2">
             <div class="container d-flex justify-content-between align-items-center">
@@ -86,7 +126,8 @@
 
                         <span style="font-size: 18px; font-weight: bold; color: black;">
                             뭐라고 부르면 좋을까요?
-                        </span>
+                        </span>                        
+
                         <input type="text" class="form-control custom-input" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요." oninput="checkInput()" style="margin-bottom: 10px; margin-top: 10px;">
 
                         <button type="submit" class="btn btn-dark w-100 custom-button" id="submitButton" disabled>다음</button>

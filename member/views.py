@@ -25,13 +25,24 @@ def signup_1(request):
 def signup_2(request, profile_img):
     if request.method == 'POST':
         nickname = request.POST.get('nickname')
+        
+        # Check if the provided nickname already exists in the Profile model
+        if Profile.objects.filter(nick=nickname).exists():
+            messages.info(request, '중복된 닉네임 입니다.')
+            return render(request, 'signup_2.html', {'profile_img': profile_img})
+        
         return redirect('signup', profile_img=profile_img, nickname=nickname)
+    
     return render(request, 'signup_2.html', {'profile_img': profile_img})
 
 def signup(request, profile_img, nickname):
-
     if request.method == 'POST':
-        if request.POST['user-password1'] == request.POST['user-password2']:
+        user_password1 = request.POST.get('user-password1')
+        if len(user_password1) <= 8:
+            messages.error(request, '비밀번호는 8자리 이상이어야 합니다.')
+            return render(request, 'signup.html', {'profile_img': profile_img, 'nickname': nickname})
+        
+        if user_password1 == request.POST['user-password2']:
             form = UserCreationMultiForm(request.POST, request.FILES)
             if form.is_valid(): 
                 user = form['user'].save()
@@ -53,14 +64,12 @@ def signup(request, profile_img, nickname):
                 auth.login(request, user)
                 return redirect('complete', profile_img=profile_img)
             else:
-
                 user_username = request.POST.get('user-username')
                 if user_username:
                     try:
                         user = User.objects.get(username=user_username)
                     except User.DoesNotExist:
                         user = None
-
                     if user:
                         messages.info(request, '아이디가 중복됩니다.')
                         return render(request, 'signup.html')
@@ -68,6 +77,7 @@ def signup(request, profile_img, nickname):
             messages.info(request, '비밀번호가 다릅니다.')
             return render(request, 'signup.html')
     return render(request, 'signup.html', {'profile_img':profile_img, 'nickname': nickname})
+
 
 def complete(request, profile_img):
     if request.method == 'POST':

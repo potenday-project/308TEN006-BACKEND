@@ -49,6 +49,44 @@
 
 <body>
 
+  {% if messages %}
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> <!-- Updated close button code -->
+              </div>
+              <div class="modal-body">
+                  {% for message in messages %}
+                      {{ message.message }}
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var errorModal = document.getElementById('errorModal');
+          if (errorModal) {
+              errorModal.classList.add('show');
+              errorModal.style.display = 'block';
+              document.body.classList.add('modal-open');
+              var backdrop = document.createElement('div');
+              backdrop.classList.add('modal-backdrop', 'fade', 'show');
+              document.body.appendChild(backdrop);
+              
+              var closeButton = errorModal.querySelector('.btn-close'); // Updated selector
+              closeButton.addEventListener('click', function() {
+                  errorModal.style.display = 'none';
+                  backdrop.remove();
+                  document.body.classList.remove('modal-open');
+              });
+          }
+      });
+  </script>
+  {% endif %}
 
 
     <header data-bs-theme="light">
@@ -69,7 +107,6 @@
   
 
 
-    <body>
         <main>
             <section class="py-3 text-center container d-flex justify-content-center">
                 <div class="modal-content rounded-4">
@@ -83,12 +120,12 @@
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호</h5>
                         <div class="mb-4">
-                            <input type="text" class="form-control custom-input" id="user-password1" name="user-password1" placeholder="비밀번호를 입력해주세요.">
+                            <input type="password" class="form-control custom-input" id="user-password1" name="user-password1" placeholder="비밀번호를 입력해주세요.">
                         </div>
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">비밀번호 확인</h5>
                         <div class="mb-4">
-                          <input type="text" class="form-control custom-input" id="user-password2" name="user-password2" placeholder="비밀번호를 다시 입력해주세요.">
+                          <input type="password" class="form-control custom-input" id="user-password2" name="user-password2" placeholder="비밀번호를 다시 입력해주세요.">
                         </div>
 
                         <h5 class="fs-6 fw-bold mb-3 d-flex justify-content-start">자기소개</h5>
@@ -130,55 +167,3 @@
 
     </body>
 </html>
-
-<!--
-<h1>회원가입</h1>
-
-{% if messages %}
-{% for message in messages %}
-에러 메시지 : {{ message.message }}
-{% endfor %}
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
-{% endif %}
-
-<form method="POST" action="" class="sign-up-form" class="sign-in-form" enctype="multipart/form-data">
-  {%csrf_token%}
-
-  <div class="form-group">
-    <label for="user-username">아이디 : </label>
-    <input type="text" name="user-username" class="form-control" placeholder="아이디" maxlength="15" autofocus required
-      id="id_user-username">
-    <br><small class="text-muted"> * 15자 이하 문자, 숫자 그리고 @/./+/-/_만 가능합니다.</small>
-  </div>
-  <br>
-  <div class="form-group">
-    <label for="exampleInputPassword1">비밀번호 : </label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호" name="user-password1"
-      required id="id_user-password1">
-    <br><small class="text-muted">비밀번호는 최소 8자 이상이어야 합니다.</small>
-  </div>
-  <br>
-  <div class="form-group">
-    <label for="exampleInputPassword2">비밀번호 확인 : </label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="비밀번호 확인" name="user-password2"
-      required id="id_user-password2">
-    <br><small class="text-muted">비밀번호는 전부 숫자로 할 수 없습니다.</small>
-  </div>
-  <br>
-
-  <input type="hidden" name="profile_img" value="{{ profile_img }}">
-  <input type="hidden" name="nickname" value="{{ nickname }}">
-
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">소개 : <br></label>
-    <textarea class="form-control" id="id_profile-intro" rows="3" name="profile-intro"></textarea>
-  </div>
-  <br>
-  <button type="submit" class="save btn btn-outline-dark">회원가입</button>
-  <a href="{% url 'index' %}">
-    <button type="button" class="btn btn-outline-dark">취소</button>
-  </a>
-</form>
--->
