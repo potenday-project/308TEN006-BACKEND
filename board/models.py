@@ -11,7 +11,7 @@ class Memos(models.Model):
     title = models.TextField(verbose_name='제목', max_length = 150, db_column='제목', null=True, default='')
     text = models.TextField(verbose_name='내용', max_length = 500, db_column='내용', null=True, default='')
     experience_date = models.DateField(verbose_name='체험 날짜', null=True, default='1999-12-31')
-    price = models.DecimalField(verbose_name='가격', max_digits=10, decimal_places=0, null=True, default=0)
+    price = models.DecimalField(verbose_name='가격', max_digits = 10, decimal_places=0, null=True, default=0)
     district = models.TextField(verbose_name='지역', max_length = 50, null=True, default='')
     platform = models.TextField(verbose_name='플랫폼', max_length = 150, null=True, default='')
     tag_text = models.TextField(verbose_name='Tag', max_length = 150, null=True)
