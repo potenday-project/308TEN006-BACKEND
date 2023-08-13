@@ -199,7 +199,7 @@
     </section>
 
     <section class="py-3 text-center container d-flex justify-content-center">
-      <input type="text" class="form-control custom-input" id="id_tag_text" name="tag_text" placeholder="#해시태그를 입력해주세요. (최대 6개)">
+      <input type="text" class="form-control custom-input" id="id_tag_text" name="tag_text" placeholder="#해시태그1 #해시태그2 #해시태그3 (최대 6개)">
     </section>
 
     <section class="py-3 text-center container d-flex justify-content-start">
@@ -359,19 +359,20 @@
           return; // 카테고리가 선택되지 않으면 함수 종료
       }
 
-      // // 해시태그 확인
-      // var tagInput = document.getElementById('id_tag_text');
-      // var tagText = tagInput.value;
-      // if (!tagText.match(/^#\w+(\s#?\w+)*$/)) {
-      //     alert('올바른 형식으로 해시태그를 입력해주세요. 예시: #태그1 #태그2 #태그3');
-      //     return; // 해시태그 형식이 맞지 않으면 함수 종료
-      // } else {
-      //     var tags = tagText.split(/\s+/);
-      //     if (tags.length > 6) {
-      //         alert('최대 6개의 해시태그까지 입력 가능합니다.');
-      //         return; // 해시태그가 6개를 초과하면 함수 종료
-      //     }
-      // }
+      var tagInput = document.getElementById('id_tag_text');
+      var tagText = tagInput.value.replace(/\s+/g, ''); // 공백 제거
+
+      if (!tagText.match(/^#\w+(#?\w+)*$/)) {
+          alert('올바른 형식으로 해시태그를 입력해주세요. 예시: #태그1 #태그2 #태그3');
+          return; // 해시태그 형식이 맞지 않으면 함수 종료
+      } else {
+          var tags = tagText.split('#');
+          tags.shift(); // 첫 번째 원소는 빈 문자열이므로 제거
+          if (tags.length > 6) {
+              alert('최대 6개의 해시태그까지 입력 가능합니다.');
+              return; // 해시태그가 6개를 초과하면 함수 종료
+          }
+      }
 
       // 위치 정보 확인
       var districtInput = document.getElementById('id_district');
